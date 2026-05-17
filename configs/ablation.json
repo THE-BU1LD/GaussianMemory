@@ -1,0 +1,14 @@
+{
+  "full": {
+    "model": "gmf"
+  },
+  "baseline_gru": {
+    "model": "gru"
+  },
+  "baseline_transformer": {
+    "model": "transformer"
+  },
+  "baseline_mlp": {
+    "model": "mlp"
+  }
+}

@@ -1,0 +1,14 @@
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{arxivrefined}[2026/03/29 Refined arXiv-style layout]
+\RequirePackage[letterpaper,margin=1in,textheight=9in,textwidth=6.5in,headheight=14pt,headsep=25pt,footskip=30pt]{geometry}
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\newcommand{\undertitle}{A Preprint}
+\newcommand{\headeright}{A Preprint}
+\makeatletter
+\renewenvironment{abstract}{\centerline{\large\bfseries Abstract}\begin{quote}}{\end{quote}}
+\makeatother

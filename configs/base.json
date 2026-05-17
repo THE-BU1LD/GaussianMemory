@@ -1,0 +1,22 @@
+{
+  "model": {
+    "dim": 64,
+    "layers": 2,
+    "memory_cells": 128,
+    "refine_steps": 3,
+    "latent_decay": 0.85
+  },
+  "training": {
+    "batch_size": 32,
+    "steps": 200,
+    "lr": 0.0003,
+    "seed": 0
+  },
+  "benchmark": {
+    "name": "associative_recall",
+    "seq_len": 17,
+    "n_pairs": 8,
+    "distractors": 8,
+    "noise": 0.05
+  }
+}
