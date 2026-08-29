@@ -1,7 +1,12 @@
-
 # Gaussian Memory Fields
 
-End-to-end research repo for persistent latent memory reasoning.
+End-to-end research code for studying persistent latent memory with Gaussian retrieval and neural-field dynamics.
+
+## Scientific status
+
+This repository currently provides an experimental scaffold, not a validated claim that Gaussian Memory Fields outperform the included baselines. The manuscript contains illustrative/reference diagnostic plots that must be replaced by generated artifacts before they are treated as empirical results.
+
+Read `RESEARCH_TRUTH.md` before quoting paper-facing findings.
 
 ## Core idea
 
@@ -20,3 +25,5 @@ python eval.py --benchmark associative_recall --model gmf --ckpt outputs/associa
 ```bash
 bash experiments/run_all.sh
 ```
+
+For publication-facing evidence, freeze a multi-seed protocol and generate every empirical table/figure directly from retained raw outputs rather than from illustrative manuscript coordinates.
