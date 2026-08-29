@@ -1,0 +1,46 @@
+name: GaussianMemory CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONPATH: .
+      MPLBACKEND: Agg
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip pytest
+          python -m pip install -r requirements.txt
+
+      - name: Compile maintained sources
+        run: python -m compileall -q src train.py eval.py tests
+
+      - name: Run tests
+        run: pytest -q tests
+
+      - name: Smoke train/eval entry points
+        run: |
+          python train.py --help
+          python eval.py --help
+
+      - name: Evidence-boundary sentinel
+        run: |
+          test -s RESEARCH_TRUTH.md
+          grep -q "illustrative" RESEARCH_TRUTH.md
+          grep -q "Do not" RESEARCH_TRUTH.md
