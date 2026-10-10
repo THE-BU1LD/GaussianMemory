@@ -101,3 +101,39 @@ A future publication run still needs a frozen multi-seed protocol, matched
 compute/parameter controls, complete source/environment identity, retained
 per-seed raw outputs, and figures generated from those outputs. The limits and
 unestablished claims in `RESEARCH_TRUTH.md` continue to apply.
+
+## Second pass: retain failed training attempts and completed identities
+
+At reviewed head `ff6d0fced236f2a6b4080a6137b805194c043884`, training wrote its
+history only after every step succeeded. A second-step exception or interruption
+therefore discarded the completed first-step history and its generated batch
+identity. A nonfinite objective could also reach backward/optimizer mutation
+before strict JSON reporting eventually failed. A completed run had no single
+source/configuration-bound terminal receipt.
+
+Each new run now writes its resolved configuration, implementation source hashes,
+Python/Torch versions, and declared development scope. Completed step records
+are flushed and fsynced to an exclusive JSONL journal. Exceptions and keyboard
+interruptions retain the completed history plus a failed/interrupted status,
+attempted step, last batch hash, and exception type/message, and are then re-raised.
+A nonfinite objective is rejected before backward; gradient clipping rejects
+nonfinite gradients and post-step weights are checked before counting completion.
+Successful runs retain the final checkpoint SHA-256 and completed step count.
+Finite positive learning-rate admission happens before creating the run directory.
+
+Eight actual-CPU-Torch fixture cases fail on the reviewed source. They use one
+or two tiny steps, injected second-step failure/interruption, a nonfinite forward,
+a successful checkpoint, and invalid learning rates. The full local suite passed
+**38 tests in 34.85 seconds** on the first implementation candidate; exact final
+source is checked again in CI after publication. One initial baseline test attempt
+accidentally inherited the old 200-step default for zero learning rate and was
+interrupted (exit 130); no result from that attempt is counted. The corrected
+baseline explicitly bounds every call to at most two steps and produced **8
+failures in 13.55 seconds**. It is the recorded baseline comparison.
+
+Existing data streams, model/loss equations, matched seeds, and checkpoint layout
+remain. These are retained-attempt facilities, not automatic resumption or a new
+benchmark campaign. SIGKILL/power loss cannot create a terminal receipt; already
+flushed journal rows remain, and absence of a completed status cannot authorize
+a scientific claim. Existing outputs are not overwritten or relabeled, and no
+protected evaluation, provider call, or model-superiority claim is introduced.
