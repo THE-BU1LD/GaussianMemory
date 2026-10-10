@@ -1,0 +1,11 @@
+{
+  "base": "9f08ce93dd270216983f16767fa2e2ad47f10252",
+  "diagnostics": "Applied patch to '.github/workflows/ci.yml' cleanly.\nApplied patch to 'README.md' cleanly.\nFalling back to direct application...\nApplied patch to 'src/gmf/data.py' cleanly.\nApplied patch to 'src/gmf/eval.py' with conflicts.\nApplied patch to 'src/gmf/train.py' with conflicts.\nApplied patch to 'src/gmf/utils.py' with conflicts.\nFalling back to direct application...\nFalling back to direct application...\nU src/gmf/eval.py\nU src/gmf/train.py\nU src/gmf/utils.py\n",
+  "exit_code": 1,
+  "resolution": {
+    "src/gmf/eval.py": "Preserve PR4 advancing split, evaluated-byte hash, seed-qualified output and CLI model mapping; retain PR6 checkpoint-control admission and explicit intervention flag.",
+    "src/gmf/train.py": "Preserve PR4 streams, source/terminal/failure records and finite training checks; retain PR6 build_ablation model factory and control metadata.",
+    "src/gmf/utils.py": "Read one immutable checkpoint byte snapshot, decode with weights_only=True, apply PR6 control guard before loading model weights, and return the consumed-byte SHA."
+  },
+  "source": "0dcd2bd666e0575a5454cc121bb4a5a7bf3b3066"
+}

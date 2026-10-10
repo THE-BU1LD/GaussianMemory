@@ -1,0 +1,9 @@
+[
+  {
+    "phase": "after_gate",
+    "artifact": "after_gate_synthetic_reordered_evaluation_receipt.json",
+    "sha256": "d25757e99d5f630717ad3bf296f1d6215fb2ffb0088e322800a88c0f19ae75c3",
+    "fixture": "Synthetic mocked component receipts; checkpoint payloads were explicit fake bytes, not models or scientific results.",
+    "observed_status": "failed"
+  }
+]

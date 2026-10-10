@@ -209,8 +209,8 @@ def test_shell_entrypoint_executes_all_five_controls_with_retained_artifacts(tmp
         [
             "bash", "experiments/run_ablation.sh", "--out-dir", str(output),
             "--dim", "4", "--memory-cells", "5", "--n-pairs", "1",
-            "--seq-len", "3", "--batch-size", "2", "--steps", "1",
-            "--eval-batches", "1",
+            "--seq-len", "3", "--batch-size", "2", "--steps", "2",
+            "--eval-batches", "2",
         ],
         check=True, capture_output=True, text=True, env=os.environ.copy(),
     )
@@ -218,11 +218,20 @@ def test_shell_entrypoint_executes_all_five_controls_with_retained_artifacts(tmp
     assert manifest["status"] == "completed"
     assert [row["ablation"] for row in manifest["runs"]] == list(ablation_plan())
     assert len(manifest["source_sha256"]) == 7
+    train_hashes = manifest["paired_streams"]["train"]["batch_sha256"]
+    eval_hashes = manifest["paired_streams"]["evaluation"]["batch_sha256"]
+    assert len(set(train_hashes)) == len(set(eval_hashes)) == 2
+    assert set(train_hashes).isdisjoint(eval_hashes)
     for row in manifest["runs"]:
         checkpoint = output / row["checkpoint"]
         assert row["status"] == "completed"
         assert row["model_name"] == f"gmf_{row['ablation']}"
         assert row["evaluation"]["model"] == row["model_name"]
+        assert row["pairing_verified"] is True
+        history = json.loads((checkpoint.parent / "train_history.json").read_text())
+        assert [item["batch_sha256"] for item in history] == train_hashes
+        assert [item["batch_sha256"] for item in row["evaluation"]["metrics"]] == eval_hashes
+        assert row["evaluation"]["checkpoint_sha256"] == row["checkpoint_sha256"]
         assert hashlib.sha256(checkpoint.read_bytes()).hexdigest() == row["checkpoint_sha256"]
         payload = torch.load(checkpoint, map_location="cpu", weights_only=True)
         assert payload["extra"]["model_name"] == row["model_name"]

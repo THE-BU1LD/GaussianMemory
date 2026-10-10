@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="20" skipped="0" tests="20" time="5.245" timestamp="2026-10-10T14:41:27.565423+09:00" hostname="ad27613feed7"><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[reorder-train]" time="0.033"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031bb02570&gt;
+split = 'train', defect = 'reorder'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[reorder-evaluation]" time="0.018"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control1')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b943e90&gt;
+split = 'evaluation', defect = 'reorder'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[different_batch-train]" time="0.048"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control2')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b966c00&gt;
+split = 'train', defect = 'different_batch'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[different_batch-evaluation]" time="0.021"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control3')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b9422a0&gt;
+split = 'evaluation', defect = 'different_batch'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[missing_batch-train]" time="0.025"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control4')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b965640&gt;
+split = 'train', defect = 'missing_batch'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[missing_batch-evaluation]" time="0.023"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control5')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b942a50&gt;
+split = 'evaluation', defect = 'missing_batch'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[schema-train]" time="0.022"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control6')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b966b40&gt;
+split = 'train', defect = 'schema'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[schema-evaluation]" time="0.020"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control7')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031bbdc7a0&gt;
+split = 'evaluation', defect = 'schema'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[source-train]" time="0.019"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control8')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b964f80&gt;
+split = 'train', defect = 'source'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[source-evaluation]" time="0.019"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control9')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b941a60&gt;
+split = 'evaluation', defect = 'source'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[split-train]" time="0.027"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control10')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b966c00&gt;
+split = 'train', defect = 'split'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[split-evaluation]" time="0.019"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control11')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b941460&gt;
+split = 'evaluation', defect = 'split'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[count-train]" time="0.023"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control12')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b96e960&gt;
+split = 'train', defect = 'count'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[count-evaluation]" time="0.018"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control13')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b941e80&gt;
+split = 'evaluation', defect = 'count'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[config-train]" time="0.024"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control14')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b966000&gt;
+split = 'train', defect = 'config'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_mismatched_second_control_stops_with_completed_first_evidence[config-evaluation]" time="0.021"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_mismatched_second_control15')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b943800&gt;
+split = 'evaluation', defect = 'config'
+
+    @pytest.mark.parametrize("split", ["train", "evaluation"])
+    @pytest.mark.parametrize("defect", ["reorder", "different_batch", "missing_batch",
+                                        "schema", "source", "split", "count", "config"])
+    def test_mismatched_second_control_stops_with_completed_first_evidence(
+        tmp_path, monkeypatch, split, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != split or name != "gmf_no_memory":
+                return
+            sequence = result["history" if phase == "train" else "metrics"]
+            if defect == "reorder":
+                sequence.reverse()
+            elif defect == "different_batch":
+                sequence[-1]["batch_sha256"] = "f" * 64
+            elif defect == "missing_batch":
+                sequence.pop()
+            elif defect == "source":
+                result["data_stream"]["data_source_sha256"] = "0" * 64
+            elif defect == "schema":
+                result["data_stream"]["schema"] = "gmf.synthetic.v1"
+            elif defect == "split":
+                result["data_stream"]["split"] = "protected"
+            elif defect == "count":
+                result["data_stream"]["batches"] = 1
+            else:
+                result["data_stream"]["config"]["noise"] = 9.0
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:112: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_a_self_consistent_first_control_still_requires_declared_identity[checkpoint]" time="0.022"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_a_self_consistent_first_c0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b96cb60&gt;
+defect = 'checkpoint'
+
+    @pytest.mark.parametrize("defect", ["checkpoint", "override", "same_domain", "bad_hash"])
+    def test_a_self_consistent_first_control_still_requires_declared_identity(
+        tmp_path, monkeypatch, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != "evaluation":
+                return
+            if defect == "checkpoint":
+                result["checkpoint_sha256"] = "0" * 64
+            elif defect == "override":
+                result["checkpoint_model_contract"]["override_authorized"] = True
+            elif defect == "same_domain":
+                cfg = data.BenchmarkConfig(name="temporal_prediction", dim=4, seq_len=3,
+                                           n_pairs=1, seed=71)
+                result["data_stream"]["generator_seed"] = data.make_data_stream(cfg, "train")[1]["generator_seed"]
+            else:
+                result["metrics"][0]["batch_sha256"] = "not-a-content-digest"
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:147: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_a_self_consistent_first_control_still_requires_declared_identity[override]" time="0.018"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_a_self_consistent_first_c1')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b940c20&gt;
+defect = 'override'
+
+    @pytest.mark.parametrize("defect", ["checkpoint", "override", "same_domain", "bad_hash"])
+    def test_a_self_consistent_first_control_still_requires_declared_identity(
+        tmp_path, monkeypatch, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != "evaluation":
+                return
+            if defect == "checkpoint":
+                result["checkpoint_sha256"] = "0" * 64
+            elif defect == "override":
+                result["checkpoint_model_contract"]["override_authorized"] = True
+            elif defect == "same_domain":
+                cfg = data.BenchmarkConfig(name="temporal_prediction", dim=4, seq_len=3,
+                                           n_pairs=1, seed=71)
+                result["data_stream"]["generator_seed"] = data.make_data_stream(cfg, "train")[1]["generator_seed"]
+            else:
+                result["metrics"][0]["batch_sha256"] = "not-a-content-digest"
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:147: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_a_self_consistent_first_control_still_requires_declared_identity[same_domain]" time="0.018"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_a_self_consistent_first_c2')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b96c800&gt;
+defect = 'same_domain'
+
+    @pytest.mark.parametrize("defect", ["checkpoint", "override", "same_domain", "bad_hash"])
+    def test_a_self_consistent_first_control_still_requires_declared_identity(
+        tmp_path, monkeypatch, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != "evaluation":
+                return
+            if defect == "checkpoint":
+                result["checkpoint_sha256"] = "0" * 64
+            elif defect == "override":
+                result["checkpoint_model_contract"]["override_authorized"] = True
+            elif defect == "same_domain":
+                cfg = data.BenchmarkConfig(name="temporal_prediction", dim=4, seq_len=3,
+                                           n_pairs=1, seed=71)
+                result["data_stream"]["generator_seed"] = data.make_data_stream(cfg, "train")[1]["generator_seed"]
+            else:
+                result["metrics"][0]["batch_sha256"] = "not-a-content-digest"
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:147: Failed</failure></testcase><testcase classname="tests.test_integrated_pairing" name="test_a_self_consistent_first_control_still_requires_declared_identity[bad_hash]" time="0.018"><failure message="Failed: DID NOT RAISE ValueError">tmp_path = PosixPath('/tmp/pytest-of-root/pytest-320/test_a_self_consistent_first_c3')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f031b942930&gt;
+defect = 'bad_hash'
+
+    @pytest.mark.parametrize("defect", ["checkpoint", "override", "same_domain", "bad_hash"])
+    def test_a_self_consistent_first_control_still_requires_declared_identity(
+        tmp_path, monkeypatch, defect,
+    ):
+        def mutate(phase, name, result):
+            if phase != "evaluation":
+                return
+            if defect == "checkpoint":
+                result["checkpoint_sha256"] = "0" * 64
+            elif defect == "override":
+                result["checkpoint_model_contract"]["override_authorized"] = True
+            elif defect == "same_domain":
+                cfg = data.BenchmarkConfig(name="temporal_prediction", dim=4, seq_len=3,
+                                           n_pairs=1, seed=71)
+                result["data_stream"]["generator_seed"] = data.make_data_stream(cfg, "train")[1]["generator_seed"]
+            else:
+                result["metrics"][0]["batch_sha256"] = "not-a-content-digest"
+    
+        fake_attempts(monkeypatch, mutate)
+&gt;       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_integrated_pairing.py:147: Failed</failure></testcase></testsuite></testsuites>

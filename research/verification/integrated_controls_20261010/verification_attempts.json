@@ -1,0 +1,108 @@
+[
+  {
+    "attempt": "baseline_pairing_discriminator",
+    "command": [
+      "python",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/test_integrated_pairing.py",
+      "-k",
+      "mismatched_second or self_consistent_first",
+      "--junitxml=/workspace/scratch/2a0c1e6ddd92/integration-repos/GaussianMemory/research/verification/integrated_controls_20261010/baseline_tests.xml"
+    ],
+    "exit_code": 1,
+    "seconds": 6.696500532998471,
+    "interpretation": "Reconstructed integrated source before the new pairing gate; PR6 runner from exact commit5094bbb, not a claim about any historical scientific run. Expected injected-mismatch tests fail because the previous runner admits them.",
+    "source_sha256": {
+      "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/gmf/__init__.py": "f7515c121dd187f691fd45108ad5a4370e224dd6c5f3e84e5ae01f2839e67145",
+      "src/gmf/ablations.py": "1c70bbbac1dd2bae563e22ae4ae021b2101866e8b4c94098607e3e5ed12a8f05",
+      "src/gmf/benchmark.py": "3cd386d4e46c7d03c361fa4d501c6365f7236961d48c37fbda041a7ad10086bc",
+      "src/gmf/cli.py": "35986ec7332f0b750ef5c1e31466a04740eeb7c00091c2a7458b380b06ceb322",
+      "src/gmf/data.py": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+      "src/gmf/eval.py": "0517b300005b1539944163303cd8e9d646d5eadf9de095323909d0a3019c1d49",
+      "src/gmf/losses.py": "d76c21a74248536ce5b0ec9b11aabe273a9ccfcb328ff6281c28b94519273621",
+      "src/gmf/model.py": "60971d7e2d662fc2cea8734c01a54315e5e2b1b035771281252fddd9307d2d82",
+      "src/gmf/plots.py": "c53cc06b5571988a3ab8430ab90e808099699f248107be7f4bcc8d73b83cf215",
+      "src/gmf/train.py": "845674ad6fbb82f6214edfe07adf66a4aa19e91186fe8dd301361673c33f6007",
+      "src/gmf/utils.py": "a98ff5b09846891400bc277f778e496503f3df3052b0704648f9c42861d6bfc1",
+      "tests/test_integrated_pairing.py": "91adf816b9e545c05fdf696beff86c9288fc4180c1d3bff3ba56df782e805154"
+    }
+  },
+  {
+    "attempt": "integrated_candidate_1",
+    "command": [
+      "python",
+      "-m",
+      "pytest",
+      "-q",
+      "-W",
+      "error",
+      "tests",
+      "--junitxml=/workspace/scratch/2a0c1e6ddd92/integration-repos/GaussianMemory/research/verification/integrated_controls_20261010/integrated_tests_1.xml"
+    ],
+    "exit_code": 0,
+    "seconds": 33.870821740987594,
+    "source_sha256": {
+      "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/gmf/__init__.py": "f7515c121dd187f691fd45108ad5a4370e224dd6c5f3e84e5ae01f2839e67145",
+      "src/gmf/ablations.py": "474bdd7ba78145769c953575d44cfb7e716d36226ad5a569f79f4d5bb8ce7cdf",
+      "src/gmf/benchmark.py": "3cd386d4e46c7d03c361fa4d501c6365f7236961d48c37fbda041a7ad10086bc",
+      "src/gmf/cli.py": "35986ec7332f0b750ef5c1e31466a04740eeb7c00091c2a7458b380b06ceb322",
+      "src/gmf/data.py": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+      "src/gmf/eval.py": "0517b300005b1539944163303cd8e9d646d5eadf9de095323909d0a3019c1d49",
+      "src/gmf/losses.py": "d76c21a74248536ce5b0ec9b11aabe273a9ccfcb328ff6281c28b94519273621",
+      "src/gmf/model.py": "60971d7e2d662fc2cea8734c01a54315e5e2b1b035771281252fddd9307d2d82",
+      "src/gmf/plots.py": "c53cc06b5571988a3ab8430ab90e808099699f248107be7f4bcc8d73b83cf215",
+      "src/gmf/train.py": "845674ad6fbb82f6214edfe07adf66a4aa19e91186fe8dd301361673c33f6007",
+      "src/gmf/utils.py": "a98ff5b09846891400bc277f778e496503f3df3052b0704648f9c42861d6bfc1",
+      "tests/test_ablation_checkpoint_identity.py": "8649c6f1fdbcc88845a71a1fdb1967ff3dee5e25bef6867753306df49b3555d1",
+      "tests/test_component_ablations.py": "f7363708d501945db8543b44c19c62546100cfa3d5af587b73c78a75d9ddc4d8",
+      "tests/test_data_integrity.py": "d569be35162ae5631a9e2a01517fc5d83465e645bd604c626c4c444e8906ed7a",
+      "tests/test_gaussian_memory_numerics.py": "1088585be1094a0d6f2f42d2fd5c00c369d5e6793f1fceb38e065a5c965ae3b3",
+      "tests/test_integrated_pairing.py": "91adf816b9e545c05fdf696beff86c9288fc4180c1d3bff3ba56df782e805154",
+      "tests/test_shapes.py": "6c0cdcd737d8bf4220ab7e41456f238ec8fbbfb3a780b65f0f7fded8e69968f3",
+      "tests/test_train_eval.py": "7c8f2dc60b3956f255ee094c27f3496c0f3314edec7539cbfd3b39029bb07304",
+      "tests/test_training_failure_receipts.py": "f1a0d12a3178371cc8b4e2cb0d88ff4004c8fc19cd8f2d72756f714d49c6fad2"
+    }
+  },
+  {
+    "attempt": "integrated_final_after_review_repair_1",
+    "command": [
+      "python",
+      "-m",
+      "pytest",
+      "-q",
+      "-W",
+      "error",
+      "tests",
+      "--basetemp=/workspace/scratch/2a0c1e6ddd92/integration-sandboxes/GaussianMemory-final-tests",
+      "--junitxml=/workspace/scratch/2a0c1e6ddd92/integration-repos/GaussianMemory/research/verification/integrated_controls_20261010/integrated_tests_final.xml"
+    ],
+    "exit_code": 0,
+    "seconds": 45.733717924013035,
+    "source_sha256": {
+      "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/gmf/__init__.py": "f7515c121dd187f691fd45108ad5a4370e224dd6c5f3e84e5ae01f2839e67145",
+      "src/gmf/ablations.py": "4e20e1151f6919ed17ef8fd4ff36beb8db4facb7590554eaa9bc54c558cc8d8f",
+      "src/gmf/benchmark.py": "3cd386d4e46c7d03c361fa4d501c6365f7236961d48c37fbda041a7ad10086bc",
+      "src/gmf/cli.py": "35986ec7332f0b750ef5c1e31466a04740eeb7c00091c2a7458b380b06ceb322",
+      "src/gmf/data.py": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+      "src/gmf/eval.py": "0517b300005b1539944163303cd8e9d646d5eadf9de095323909d0a3019c1d49",
+      "src/gmf/losses.py": "d76c21a74248536ce5b0ec9b11aabe273a9ccfcb328ff6281c28b94519273621",
+      "src/gmf/model.py": "60971d7e2d662fc2cea8734c01a54315e5e2b1b035771281252fddd9307d2d82",
+      "src/gmf/plots.py": "c53cc06b5571988a3ab8430ab90e808099699f248107be7f4bcc8d73b83cf215",
+      "src/gmf/train.py": "845674ad6fbb82f6214edfe07adf66a4aa19e91186fe8dd301361673c33f6007",
+      "src/gmf/utils.py": "a98ff5b09846891400bc277f778e496503f3df3052b0704648f9c42861d6bfc1",
+      "tests/test_ablation_checkpoint_identity.py": "8649c6f1fdbcc88845a71a1fdb1967ff3dee5e25bef6867753306df49b3555d1",
+      "tests/test_component_ablations.py": "f7363708d501945db8543b44c19c62546100cfa3d5af587b73c78a75d9ddc4d8",
+      "tests/test_data_integrity.py": "d569be35162ae5631a9e2a01517fc5d83465e645bd604c626c4c444e8906ed7a",
+      "tests/test_gaussian_memory_numerics.py": "1088585be1094a0d6f2f42d2fd5c00c369d5e6793f1fceb38e065a5c965ae3b3",
+      "tests/test_integrated_pairing.py": "4e4a88f1bb4536e9c9c24c2d6cd9d421f5e517ca0528dc7b6db0fbf149be227c",
+      "tests/test_shapes.py": "6c0cdcd737d8bf4220ab7e41456f238ec8fbbfb3a780b65f0f7fded8e69968f3",
+      "tests/test_train_eval.py": "7c8f2dc60b3956f255ee094c27f3496c0f3314edec7539cbfd3b39029bb07304",
+      "tests/test_training_failure_receipts.py": "f1a0d12a3178371cc8b4e2cb0d88ff4004c8fc19cd8f2d72756f714d49c6fad2"
+    }
+  }
+]

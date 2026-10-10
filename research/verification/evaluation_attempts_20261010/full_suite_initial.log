@@ -1,0 +1,30 @@
+F....................................................................... [ 45%]
+........................................................................ [ 91%]
+..............                                                           [100%]
+=================================== FAILURES ===================================
+______ test_accidental_ablation_change_fails_before_loading_or_evaluating ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-418/test_accidental_ablation_chang0')
+
+    def test_accidental_ablation_change_fails_before_loading_or_evaluating(tmp_path):
+        path = checkpoint(tmp_path)
+        requested = build_model("gmf_full", dim=4, memory_cells=5)
+        before = {key: value.clone() for key, value in requested.state_dict().items()}
+        with pytest.raises(ValueError, match="ablation differs"):
+            load_checkpoint(path, requested, expected_model_name="gmf_full")
+        for key, value in requested.state_dict().items():
+            torch.testing.assert_close(value, before[key], rtol=0, atol=0)
+        with patch("src.gmf.eval.evaluate", side_effect=AssertionError("evaluation started")):
+            with pytest.raises(ValueError, match="ablation differs"):
+                run_eval(model_name="gmf_full", ckpt=path, dim=4, memory_cells=5, out_dir=tmp_path / "output")
+        # Admission still blocks model-state loading and evaluation. The new
+        # evaluation-evidence contract retains this rejected attempt explicitly.
+        attempt = tmp_path / "output" / "eval_associative_recall_gmf_full_seed0.attempt"
+>       status = json.loads((attempt / "status.json").read_text())
+                 ^^^^
+E       NameError: name 'json' is not defined. Did you forget to import 'json'
+
+tests/test_ablation_checkpoint_identity.py:33: NameError
+=========================== short test summary info ============================
+FAILED tests/test_ablation_checkpoint_identity.py::test_accidental_ablation_change_fails_before_loading_or_evaluating
+1 failed, 157 passed in 25.17s

@@ -1,0 +1,311 @@
+FFFFFFFFFFFF                                                             [100%]
+=================================== FAILURES ===================================
+_ test_failed_later_batch_retains_completed_evidence_and_prevents_reuse[False] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-393/test_failed_later_batch_retain0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f9732f7ac30>
+interrupt = False
+
+    @pytest.mark.parametrize("interrupt", [False, True])
+    def test_failed_later_batch_retains_completed_evidence_and_prevents_reuse(tmp_path, monkeypatch, interrupt):
+        model = FixtureModel(fail_at=2, interrupt=interrupt)
+        with pytest.raises(KeyboardInterrupt if interrupt else RuntimeError):
+            run(tmp_path, monkeypatch, model)
+        root = attempt(tmp_path)
+>       events = [json.loads(line) for line in (root / "batches.jsonl").read_text().splitlines()]
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_evaluation_attempts.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/pytest-of-root/pytest-393/test_failed_later_batch_retain0/eval_copy_task_mlp_seed19.attempt/batches.jsonl')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-393/test_failed_later_batch_retain0/eval_copy_task_mlp_seed19.attempt/batches.jsonl'
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_failed_later_batch_retains_completed_evidence_and_prevents_reuse[True] __
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-393/test_failed_later_batch_retain1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f9732feddf0>
+interrupt = True
+
+    @pytest.mark.parametrize("interrupt", [False, True])
+    def test_failed_later_batch_retains_completed_evidence_and_prevents_reuse(tmp_path, monkeypatch, interrupt):
+        model = FixtureModel(fail_at=2, interrupt=interrupt)
+        with pytest.raises(KeyboardInterrupt if interrupt else RuntimeError):
+            run(tmp_path, monkeypatch, model)
+        root = attempt(tmp_path)
+>       events = [json.loads(line) for line in (root / "batches.jsonl").read_text().splitlines()]
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_evaluation_attempts.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/pytest-of-root/pytest-393/test_failed_later_batch_retain1/eval_copy_task_mlp_seed19.attempt/batches.jsonl')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-393/test_failed_later_batch_retain1/eval_copy_task_mlp_seed19.attempt/batches.jsonl'
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_______ test_checkpoint_failure_is_retained_before_any_evaluation_batch ________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-393/test_checkpoint_failure_is_ret0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f9732fef740>
+
+    def test_checkpoint_failure_is_retained_before_any_evaluation_batch(tmp_path, monkeypatch):
+        model = FixtureModel()
+        with pytest.raises(FileNotFoundError):
+            run(tmp_path, monkeypatch, model, ckpt=str(tmp_path / "missing.pt"))
+        root = attempt(tmp_path)
+>       status = json.loads((root / "status.json").read_text())
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_evaluation_attempts.py:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/pytest-of-root/pytest-393/test_checkpoint_failure_is_ret0/eval_copy_task_mlp_seed19.attempt/status.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-393/test_checkpoint_failure_is_ret0/eval_copy_task_mlp_seed19.attempt/status.json'
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py:1013: FileNotFoundError
+______ test_broadcast_prediction_is_rejected_before_cross_sample_metrics _______
+
+    def test_broadcast_prediction_is_rejected_before_cross_sample_metrics():
+>       with pytest.raises(ValueError, match="prediction.*shape"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_evaluation_attempts.py:79: Failed
+__________________ test_nonfinite_prediction_is_rejected[nan] __________________
+
+value = nan
+
+    @pytest.mark.parametrize("value", [float("nan"), float("inf"), -float("inf")])
+    def test_nonfinite_prediction_is_rejected(value):
+>       with pytest.raises(ValueError, match="prediction.*finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_evaluation_attempts.py:86: Failed
+__________________ test_nonfinite_prediction_is_rejected[inf] __________________
+
+value = inf
+
+    @pytest.mark.parametrize("value", [float("nan"), float("inf"), -float("inf")])
+    def test_nonfinite_prediction_is_rejected(value):
+>       with pytest.raises(ValueError, match="prediction.*finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_evaluation_attempts.py:86: Failed
+_________________ test_nonfinite_prediction_is_rejected[-inf] __________________
+
+value = -inf
+
+    @pytest.mark.parametrize("value", [float("nan"), float("inf"), -float("inf")])
+    def test_nonfinite_prediction_is_rejected(value):
+>       with pytest.raises(ValueError, match="prediction.*finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_evaluation_attempts.py:86: Failed
+_____ test_uncertainty_must_be_one_finite_scalar_per_example[uncertainty0] _____
+
+uncertainty = tensor([[0., 0.],
+        [0., 0.]])
+
+    @pytest.mark.parametrize("uncertainty", [torch.zeros(2, 2), torch.tensor([[0.2], [float("nan")]])])
+    def test_uncertainty_must_be_one_finite_scalar_per_example(uncertainty):
+        class Uncertain(FixtureModel):
+            def forward(self, seq):
+                return dict(super().forward(seq), uncertainty=uncertainty)
+>       with pytest.raises(ValueError, match="uncertainty"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_evaluation_attempts.py:96: Failed
+_____ test_uncertainty_must_be_one_finite_scalar_per_example[uncertainty1] _____
+
+uncertainty = tensor([[0.2000],
+        [   nan]])
+
+    @pytest.mark.parametrize("uncertainty", [torch.zeros(2, 2), torch.tensor([[0.2], [float("nan")]])])
+    def test_uncertainty_must_be_one_finite_scalar_per_example(uncertainty):
+        class Uncertain(FixtureModel):
+            def forward(self, seq):
+                return dict(super().forward(seq), uncertainty=uncertainty)
+>       with pytest.raises(ValueError, match="uncertainty"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_evaluation_attempts.py:96: Failed
+_____ test_complete_attempt_publishes_existing_metrics_and_source_identity _____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-393/test_complete_attempt_publishe0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f9732fe1130>
+
+    def test_complete_attempt_publishes_existing_metrics_and_source_identity(tmp_path, monkeypatch):
+        result = run(tmp_path, monkeypatch, FixtureModel())
+        root = attempt(tmp_path)
+        assert result["agg"]["mse_mean"] == result["agg"]["mse_std"] == 0.0
+        assert result["agg"]["cosine_mean"] == pytest.approx(1.0, abs=1e-6)
+>       assert json.loads((root / "result.json").read_text()) == result
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_evaluation_attempts.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/pytest-of-root/pytest-393/test_complete_attempt_publishe0/eval_copy_task_mlp_seed19.attempt/result.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-393/test_complete_attempt_publishe0/eval_copy_task_mlp_seed19.attempt/result.json'
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py:1013: FileNotFoundError
+----------------------------- Captured stdout call -----------------------------
+{
+  "cosine_mean": 0.9999999403953552,
+  "cosine_std": 4.8666988666518094e-08,
+  "mse_mean": 0.0,
+  "mse_std": 0.0,
+  "uncertainty_mean": null
+}
+_______________ test_concurrently_published_result_is_preserved ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-393/test_concurrently_published_re0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f9732fe2420>
+
+    def test_concurrently_published_result_is_preserved(tmp_path, monkeypatch):
+        class Concurrent(FixtureModel):
+            def forward(self, seq):
+                out = super().forward(seq)
+                if self.calls == 1:
+                    (tmp_path / "eval_copy_task_mlp_seed19.json").write_text("other completed result\n")
+                return out
+        with pytest.raises(FileExistsError):
+            run(tmp_path, monkeypatch, Concurrent())
+        assert (tmp_path / "eval_copy_task_mlp_seed19.json").read_text() == "other completed result\n"
+>       assert json.loads((attempt(tmp_path) / "status.json").read_text())["status"] == "failed"
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_evaluation_attempts.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/pytest-of-root/pytest-393/test_concurrently_published_re0/eval_copy_task_mlp_seed19.attempt/status.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-393/test_concurrently_published_re0/eval_copy_task_mlp_seed19.attempt/status.json'
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py:1013: FileNotFoundError
+________________ test_dangling_result_symlink_blocks_model_work ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-393/test_dangling_result_symlink_b0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f9732fe1460>
+
+    def test_dangling_result_symlink_blocks_model_work(tmp_path, monkeypatch):
+        output = tmp_path / "eval_copy_task_mlp_seed19.json"
+        output.symlink_to(tmp_path / "missing.json")
+        model = FixtureModel()
+        with pytest.raises(FileExistsError):
+            run(tmp_path, monkeypatch, model)
+>       assert model.calls == 0 and output.is_symlink()
+E       assert (3 == 0)
+E        +  where 3 = FixtureModel().calls
+
+tests/test_evaluation_attempts.py:135: AssertionError
+=============================== warnings summary ===============================
+tests/test_evaluation_attempts.py::test_broadcast_prediction_is_rejected_before_cross_sample_metrics
+  /workspace/scratch/514f0f067657/geometry_memory/gaussian/src/gmf/eval.py:50: UserWarning: Using a target size (torch.Size([2, 4])) that is different to the input size (torch.Size([2, 1, 4])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+    mse = F.mse_loss(pred, target, reduction="none").mean(dim=-1)
+
+tests/test_evaluation_attempts.py::test_nonfinite_prediction_is_rejected[inf]
+tests/test_evaluation_attempts.py::test_nonfinite_prediction_is_rejected[-inf]
+  /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy/_core/_methods.py:190: RuntimeWarning: invalid value encountered in subtract
+    x = asanyarray(arr - arrmean)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_evaluation_attempts.py::test_failed_later_batch_retains_completed_evidence_and_prevents_reuse[False]
+FAILED tests/test_evaluation_attempts.py::test_failed_later_batch_retains_completed_evidence_and_prevents_reuse[True]
+FAILED tests/test_evaluation_attempts.py::test_checkpoint_failure_is_retained_before_any_evaluation_batch
+FAILED tests/test_evaluation_attempts.py::test_broadcast_prediction_is_rejected_before_cross_sample_metrics
+FAILED tests/test_evaluation_attempts.py::test_nonfinite_prediction_is_rejected[nan]
+FAILED tests/test_evaluation_attempts.py::test_nonfinite_prediction_is_rejected[inf]
+FAILED tests/test_evaluation_attempts.py::test_nonfinite_prediction_is_rejected[-inf]
+FAILED tests/test_evaluation_attempts.py::test_uncertainty_must_be_one_finite_scalar_per_example[uncertainty0]
+FAILED tests/test_evaluation_attempts.py::test_uncertainty_must_be_one_finite_scalar_per_example[uncertainty1]
+FAILED tests/test_evaluation_attempts.py::test_complete_attempt_publishes_existing_metrics_and_source_identity
+FAILED tests/test_evaluation_attempts.py::test_concurrently_published_result_is_preserved
+FAILED tests/test_evaluation_attempts.py::test_dangling_result_symlink_blocks_model_work
+12 failed, 3 warnings in 4.78s

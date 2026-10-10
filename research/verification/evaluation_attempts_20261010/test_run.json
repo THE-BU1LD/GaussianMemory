@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "pytest",
+    "-q",
+    "-W",
+    "error",
+    "tests",
+    "--junitxml=research/verification/evaluation_attempts_20261010/full_suite.xml"
+  ],
+  "seconds": 42.79021992700291,
+  "exit_code": 0
+}

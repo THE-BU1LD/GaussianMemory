@@ -1,0 +1,77 @@
+{
+  "schema": "gmf.engineering-verification.v1",
+  "date": "2026-10-10",
+  "parent_commit": "bdb3a82c600c316c424af586813aa9ef7240066d",
+  "implementation_revision": "gmf.evaluation-evidence.v1",
+  "source_sha256": {
+    "src/gmf/eval.py": "4bf939936285e3d9ebb1ba832dc2bcb2e6ba66b98c992549155b97e443a02d23",
+    "tests/test_evaluation_attempts.py": "308cb8c79e510990fa1d042c0b76f234b273507dde7138b2c17c3583ce5f70ef",
+    "tests/test_ablation_checkpoint_identity.py": "161e321d85149a90703cc5982c1efda4b015c267501dfaad08a271b8c5d13edf"
+  },
+  "baseline": {
+    "failed": 12,
+    "passed": 0,
+    "seconds": 4.78,
+    "log": "baseline_regressions.log",
+    "qualification": "Some assertions establish new evidence fields; not all failures are distinct invalid prior scientific outcomes."
+  },
+  "intermediate_failures": [
+    {
+      "stage": "focused",
+      "failed": 1,
+      "passed": 48,
+      "seconds": 21.33,
+      "cause": "Existing checkpoint-admission test expected no output directory; new evidence contract intentionally retains a rejected attempt. Extended the existing assertion without weakening model-state or evaluation admission."
+    },
+    {
+      "stage": "first complete suite",
+      "failed": 1,
+      "passed": 157,
+      "seconds": 25.17,
+      "log": "full_suite_initial.log",
+      "cause": "The extended test lacked its json import; added that test-only import. Production source unchanged."
+    }
+  ],
+  "verification": {
+    "passed": 158,
+    "new_tests": 12,
+    "inherited_tests": 146,
+    "pytest_seconds": 38.55,
+    "command_seconds": 42.79021992700291,
+    "log": "full_suite.log",
+    "xml": "full_suite.xml",
+    "command_record": "test_run.json",
+    "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=. OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 python -m pytest -q -W error tests",
+    "ruff": "E4,E7,E9,F passed",
+    "whitespace": "passed"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.14.1+cpu",
+    "numpy": "2.3.5",
+    "pytest": "9.1.1",
+    "device": "CPU"
+  },
+  "independent_review": {
+    "reviewer": "parent root agent",
+    "type": "source-only; tests not rerun",
+    "status": "NO_SCOPED_BLOCKER",
+    "findings": "Exact prediction shape prevents cross-sample broadcast; finite target/prediction/uncertainty admitted before metrics; fsynced per-batch started/completed journal retains prior batch; exclusive attempt and hard-link final publication preserve existing evidence."
+  },
+  "budget_consumed": {
+    "full_test_commands": 2,
+    "focused_commands": 2,
+    "test_command_seconds_upper_bound": 120,
+    "scientific_trials": 0,
+    "paid_compute": 0,
+    "protected_outcomes": 0
+  },
+  "limitations": [
+    "Durability covers catchable failures and interruptions with a writable filesystem; arbitrary process death or disk failure can prevent final evidence.",
+    "Per-batch input fingerprints and scalar diagnostics are retained; full per-example raw predictions and independent-unit statistical analysis are not added.",
+    "Atomic final publication requires filesystem hard-link support; failure is explicit and does not replace existing output.",
+    "Existing metric equations are retained; finite representability is checked, not a universal precision guarantee.",
+    "Model architecture, training losses, tasks, synthetic streams, checkpoints and all historical research results are unchanged.",
+    "UNVALIDATED_INFRASTRUCTURE and prospective scientific gates remain unchanged."
+  ]
+}
