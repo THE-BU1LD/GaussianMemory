@@ -62,8 +62,16 @@ def save_checkpoint(path: str | Path, model: torch.nn.Module, optimizer: torch.o
     torch.save(payload, path)
 
 
-def load_checkpoint(path: str | Path, model: torch.nn.Module, optimizer: torch.optim.Optimizer | None = None):
+def load_checkpoint(path: str | Path, model: torch.nn.Module, optimizer: torch.optim.Optimizer | None = None,
+                    *, expected_model_name: str | None = None, allow_ablation_override: bool = False):
     payload = torch.load(path, map_location="cpu")
+    if expected_model_name is not None:
+        from .ablations import checkpoint_evaluation_identity
+
+        checkpoint_evaluation_identity(
+            payload.get("extra"), expected_model_name,
+            allow_ablation_override=allow_ablation_override,
+        )
     model.load_state_dict(payload["model"])
     if optimizer is not None and "optimizer" in payload:
         optimizer.load_state_dict(payload["optimizer"])

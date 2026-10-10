@@ -23,6 +23,41 @@ def ablation_plan():
     return deepcopy(ABLATIONS)
 
 
+def checkpoint_evaluation_identity(extra, requested_name, *, allow_ablation_override=False):
+    """Bind evaluation to the trained component setting unless explicitly intervening.
+
+    GMF component settings share every parameter name and shape, so strict
+    state-dictionary loading alone cannot detect a changed scientific control.
+    """
+    if type(allow_ablation_override) is not bool:
+        raise ValueError("allow_ablation_override must be a boolean")
+
+    def canonical(name):
+        if not isinstance(name, str):
+            raise ValueError("checkpoint and evaluation require recorded model names")
+        name = name.lower()
+        if name == "gmf":
+            name = "gmf_full"
+        if name not in {"mlp", "gru", "transformer", *(f"gmf_{key}" for key in ABLATIONS)}:
+            raise ValueError(f"unknown checkpoint/evaluation model: {name!r}")
+        return name
+
+    if not isinstance(extra, dict):
+        raise ValueError("checkpoint lacks model identity metadata")
+    trained = canonical(extra.get("model_name"))
+    requested = canonical(requested_name)
+    changed = trained != requested
+    if changed and not (trained.startswith("gmf_") and requested.startswith("gmf_")):
+        raise ValueError("checkpoint and evaluation model families differ")
+    if changed and not allow_ablation_override:
+        raise ValueError("checkpoint ablation differs; an intentional intervention requires allow_ablation_override=True")
+    return {
+        "schema": "gmf.checkpoint-evaluation.v1", "trained_model": trained,
+        "evaluation_model": requested, "ablation_intervention": changed,
+        "override_authorized": allow_ablation_override,
+    }
+
+
 def build_ablation(name: str = "full", **model_kwargs):
     """Instantiate one declared component intervention on the existing GMF.
 

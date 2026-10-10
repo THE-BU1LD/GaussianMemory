@@ -11,7 +11,8 @@
     "paper/main.tex",
     "configs/base.json",
     "configs/ablation.json",
-    "docs/development/ablation-contract-20261010.md"
+    "docs/development/ablation-contract-20261010.md",
+    "docs/development/checkpoint-identity-20261010.md"
   ],
   "research_question": "Can the existing Gaussian-memory and neural-field mechanism improve controlled sequence retrieval beyond simpler models under a valid, matched protocol?",
   "current_hypothesis": "Unfrozen working hypothesis: persistent memory and its declared components could improve retrieval robustness; no validated support is available.",
@@ -71,7 +72,11 @@
   "failures_and_limitations": [
     "No canonical empirical evidence of a baseline advantage exists; manuscript plots remain illustrative.",
     "Existing open PR #4 repairs repeated synthetic streams and temporal target leakage; this branch does not duplicate it.",
-    "Existing open PR #5 repairs Gaussian retrieval numerics; this branch does not duplicate it."
+    "Existing open PR #5 repairs Gaussian retrieval numerics; this branch does not duplicate it.",
+    "Checkpoint metadata describes provenance; it is not an authenticated signature.",
+    "Legacy direct load_checkpoint calls without expected_model_name retain their existing behavior; run_eval supplies the guard.",
+    "PR #4 data/CLI repairs and PR #5 retrieval numerics remain separate integration requirements.",
+    "No scientific result or manuscript number was regenerated."
   ],
   "pending": [
     "Hosted CI and normal pull-request integration; independent source review passed.",
@@ -79,11 +84,50 @@
     "Freeze prior-art boundary, hypothesis, meaningful datasets, matching budgets, primary endpoint, repetitions and falsifier before protected evaluation."
   ],
   "validation": {
-    "command": "PYTHONPATH=<isolated-torch>:. OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python -m pytest -q",
-    "passed": 31,
-    "new_cases": 28,
-    "existing_cases": 3,
-    "seconds": 13.19
+    "schema": "research.engineering-verification.v1",
+    "date": "2026-10-10",
+    "repository": "THE-BU1LD/GaussianMemory",
+    "parent_commit": "89bec9805a311946f05a3038d89a1a0ff46d2c43",
+    "implementation_revision": "gmf.checkpoint-evaluation.v1",
+    "scope": "complete local test suite",
+    "status": "PASSED",
+    "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=. OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 python -m pytest -o addopts='' -q",
+    "passed": 41,
+    "new_cases": 10,
+    "seconds": 30.15,
+    "environment": {
+      "python": "3.12.14",
+      "torch": "2.14.1+cpu",
+      "numpy": "2.3.5",
+      "pandas": "2.2.3",
+      "pytest": "9.1.1",
+      "device": "CPU",
+      "threads_per_test_process": 1
+    },
+    "source_sha256": {
+      "src/gmf/ablations.py": "1c70bbbac1dd2bae563e22ae4ae021b2101866e8b4c94098607e3e5ed12a8f05",
+      "src/gmf/utils.py": "bbbc541bbdae4a5890437776968aa8ae2b0422a8ec2418c3aba11324313b15ad",
+      "src/gmf/eval.py": "6ea7e152c1143631b0c6983d1c257c0e61ddaa673a7673047625410a751f4c8a",
+      "tests/test_ablation_checkpoint_identity.py": "8649c6f1fdbcc88845a71a1fdb1967ff3dee5e25bef6867753306df49b3555d1"
+    },
+    "protected_outcomes_accessed": false,
+    "new_scientific_trials": 0,
+    "provider_calls": 0,
+    "paid_compute": 0,
+    "hosted_ci": "Not a hosted-CI result; verify the exact published head separately.",
+    "independent_review": "PASS: independent root reviewed final NPMS, GaussianMemory, CMU, DRPT, RIPII and LAM source; requested seed/replay and byte-binding corrections are implemented and verified.",
+    "limitations": [
+      "Checkpoint metadata describes provenance; it is not an authenticated signature.",
+      "Legacy direct load_checkpoint calls without expected_model_name retain their existing behavior; run_eval supplies the guard.",
+      "PR #4 data/CLI repairs and PR #5 retrieval numerics remain separate integration requirements.",
+      "No scientific result or manuscript number was regenerated."
+    ],
+    "verification_note": "Final exact-source full suite: 41 passed in 30.15s; retained in tests.xml.",
+    "previous_verification": {
+      "passed": 41,
+      "seconds": 58.12,
+      "scope": "same behavioral source before removal of unused imports"
+    }
   },
   "project_history": {
     "scope": "This canonical state indexes retained project documents; it is not a claim of a complete new re-audit of every historical artifact.",
@@ -106,8 +150,41 @@
         "date": "2026-10-10",
         "event": "Root independently reviewed the source and regression tests, requested targeted adjustments, accepted the final implementation, and authorized publication.",
         "protected_outcomes": false
+      },
+      {
+        "date": "2026-10-10",
+        "event": "Bind evaluation to the trained checkpoint control before loading weights, with an explicit recorded within-GMF intervention override.",
+        "parent_commit": "89bec9805a311946f05a3038d89a1a0ff46d2c43",
+        "implementation_revision": "gmf.checkpoint-evaluation.v1",
+        "record": "docs/development/checkpoint-identity-20261010.md",
+        "verification_receipt": "research/verification/checkpoint_identity_20261010/receipt.json",
+        "protected_outcomes": false,
+        "new_scientific_trials": 0
       }
     ]
   },
-  "independent_source_review": "PASS: root reviewed implementation, discriminating tests and boundaries before publication."
+  "independent_source_review": "PASS: independent root reviewed final NPMS, GaussianMemory, CMU, DRPT, RIPII and LAM source; requested seed/replay and byte-binding corrections are implemented and verified.",
+  "verification_history": [
+    {
+      "verified_parent_commit": "89bec9805a311946f05a3038d89a1a0ff46d2c43",
+      "verification": {
+        "command": "PYTHONPATH=<isolated-torch>:. OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python -m pytest -q",
+        "passed": 31,
+        "new_cases": 28,
+        "existing_cases": 3,
+        "seconds": 13.19
+      }
+    }
+  ],
+  "implementation_revision": "gmf.checkpoint-evaluation.v1",
+  "latest_engineering_change": {
+    "date": "2026-10-10",
+    "event": "Bind evaluation to the trained checkpoint control before loading weights, with an explicit recorded within-GMF intervention override.",
+    "parent_commit": "89bec9805a311946f05a3038d89a1a0ff46d2c43",
+    "implementation_revision": "gmf.checkpoint-evaluation.v1",
+    "record": "docs/development/checkpoint-identity-20261010.md",
+    "verification_receipt": "research/verification/checkpoint_identity_20261010/receipt.json",
+    "protected_outcomes": false,
+    "new_scientific_trials": 0
+  }
 }

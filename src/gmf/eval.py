@@ -9,8 +9,7 @@ import torch
 import torch.nn.functional as F
 
 from .data import benchmark_registry, BenchmarkConfig
-from .ablations import build_ablation
-from .losses import cosine_loss, mse_loss
+from .ablations import build_ablation, checkpoint_evaluation_identity
 from .model import GMFModel, MeanPoolMLP, GRUReasoner, TransformerReasoner
 from .utils import load_checkpoint, save_json, ensure_dir
 
@@ -73,11 +72,20 @@ def run_eval(
     seed: int = 0,
     device: str = "cpu",
     out_dir: str = "outputs",
+    allow_ablation_override: bool = False,
 ):
     cfg = BenchmarkConfig(name=benchmark, dim=dim, seq_len=seq_len, n_pairs=n_pairs, distractors=distractors, noise=noise, seed=seed)
     model = build_model(model_name, dim=dim, memory_cells=memory_cells).to(device)
+    checkpoint_contract = None
     if ckpt:
-        load_checkpoint(ckpt, model, None)
+        payload = load_checkpoint(
+            ckpt, model, None, expected_model_name=model_name,
+            allow_ablation_override=allow_ablation_override,
+        )
+        checkpoint_contract = checkpoint_evaluation_identity(
+            payload.get("extra"), model_name,
+            allow_ablation_override=allow_ablation_override,
+        )
     agg, metrics = evaluate(model, benchmark, cfg, device=device, batch_size=batch_size, batches=batches)
     out_root = ensure_dir(out_dir)
     result = {
@@ -85,6 +93,7 @@ def run_eval(
         "model": model_name,
         "agg": agg,
         "metrics": metrics,
+        "checkpoint_model_contract": checkpoint_contract,
     }
     save_json(Path(out_root) / f"eval_{benchmark}_{model_name}.json", result)
     print(json.dumps(result["agg"], indent=2))
