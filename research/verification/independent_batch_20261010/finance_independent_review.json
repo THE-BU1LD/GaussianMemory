@@ -1,0 +1,105 @@
+{
+  "status": "PASS",
+  "reviewer": "finance_next independent source review",
+  "source_sha256": "0d12c63296cb65b1bd2ead3089e8a678cc4f7eadf764d6f8cfc7324ef09d6dfa",
+  "parent_sha256": "60971d7e2d662fc2cea8734c01a54315e5e2b1b035771281252fddd9307d2d82",
+  "cases": [
+    {
+      "dim": 1,
+      "layers": 0,
+      "refine_steps": 0,
+      "write": false,
+      "training": false,
+      "status": "pass"
+    },
+    {
+      "dim": 1,
+      "layers": 0,
+      "refine_steps": 0,
+      "write": false,
+      "training": true,
+      "status": "pass"
+    },
+    {
+      "dim": 1,
+      "layers": 0,
+      "refine_steps": 0,
+      "write": true,
+      "training": false,
+      "status": "pass"
+    },
+    {
+      "dim": 1,
+      "layers": 0,
+      "refine_steps": 0,
+      "write": true,
+      "training": true,
+      "status": "pass"
+    },
+    {
+      "dim": 3,
+      "layers": 1,
+      "refine_steps": 1,
+      "write": false,
+      "training": false,
+      "status": "pass"
+    },
+    {
+      "dim": 3,
+      "layers": 1,
+      "refine_steps": 1,
+      "write": false,
+      "training": true,
+      "status": "pass"
+    },
+    {
+      "dim": 3,
+      "layers": 1,
+      "refine_steps": 1,
+      "write": true,
+      "training": false,
+      "status": "pass"
+    },
+    {
+      "dim": 3,
+      "layers": 1,
+      "refine_steps": 1,
+      "write": true,
+      "training": true,
+      "status": "pass"
+    },
+    {
+      "dim": 7,
+      "layers": 3,
+      "refine_steps": 2,
+      "write": false,
+      "training": false,
+      "status": "pass"
+    },
+    {
+      "dim": 7,
+      "layers": 3,
+      "refine_steps": 2,
+      "write": false,
+      "training": true,
+      "status": "pass"
+    },
+    {
+      "dim": 7,
+      "layers": 3,
+      "refine_steps": 2,
+      "write": true,
+      "training": false,
+      "status": "pass"
+    },
+    {
+      "dim": 7,
+      "layers": 3,
+      "refine_steps": 2,
+      "write": true,
+      "training": true,
+      "status": "pass"
+    }
+  ],
+  "scope": "12 extra float64 configurations, including noncontiguous tensors, zero encoder layers, dimension one, memory write on/off, train/eval exact RNG continuation, every output, selected-row gradients with zero cross-row gradients, parameter gradients and persistent state. Static read of execution-mode factory, train/checkpoint/eval metadata also passed. No speed or scientific result claim."
+}

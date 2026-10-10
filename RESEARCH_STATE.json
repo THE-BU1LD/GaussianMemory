@@ -105,6 +105,32 @@
     "Independently derive the first stream seed so agreement across all controls cannot hide a common wrong seed.",
     "Close this bounded engineering session after 146 passing tests, independent repair review and one retained five-control matrix; no score-driven adaptation."
   ],
+  "development_continuations": [
+    {
+      "budget": {
+        "max_focused_test_commands": 4,
+        "max_full_test_commands": 2,
+        "max_test_seconds": 600,
+        "paid_compute": 0,
+        "protected_outcomes": 0,
+        "scientific_trials": 0
+      },
+      "contract": "docs/development/evaluation-attempts-20261010.md",
+      "id": "gmf-evaluation-evidence-20261010",
+      "independent_review": {
+        "findings": "Exact prediction shape prevents cross-sample broadcast; finite target/prediction/uncertainty admitted before metrics; fsynced per-batch started/completed journal retains prior batch; exclusive attempt and hard-link final publication preserve existing evidence.",
+        "reviewer": "parent root agent",
+        "status": "NO_SCOPED_BLOCKER",
+        "type": "source-only; tests not rerun"
+      },
+      "next_action": "Review the existing integrated PR7 candidate; all scientific gates remain pending.",
+      "parent_commit": "bdb3a82c600c316c424af586813aa9ef7240066d",
+      "parent_state": "research/verification/evaluation_attempts_20261010/parent_state.json",
+      "passed_tests": 158,
+      "status": "ENGINEERING_VERIFIED",
+      "verification_receipt": "research/verification/evaluation_attempts_20261010/receipt.json"
+    }
+  ],
   "failures_and_limitations": [
     "No canonical empirical evidence of a baseline advantage exists; manuscript plots remain illustrative.",
     "Checkpoint metadata describes provenance; it is not an authenticated signature.",
@@ -117,15 +143,46 @@
     "Source hashes require a fresh process and unchanged checkout; they do not authenticate arbitrary cached, monkeypatched or live-mutated execution."
   ],
   "implementation_revision": "gmf.integrated-development.v1",
+  "independent_batch_continuation_20261010": {
+    "contract": "docs/development/independent-batch-contract-20261010.md",
+    "final_combined_tests": 194,
+    "full_suite_passed": 194,
+    "implementation_revision": "gmf.independent-batch.v1",
+    "independent_extra_configurations": 12,
+    "inherited_parent_tests": 158,
+    "initial_full_suite_passed": 182,
+    "limitations": [
+      "Batched matrix arithmetic can change floating-point rounding; tolerance equivalence, not bitwise trained-weight identity.",
+      "Exact CPU RNG continuation verified for the maintained components and checked runtime; no arbitrary stochastic module or CUDA equivalence claim.",
+      "Independent bank state scales with batch size; temporary memory increases versus serial execution.",
+      "Fixed local timing ratio is not a hardware-independent speedup or scientific efficacy result.",
+      "UNVALIDATED_INFRASTRUCTURE and all prior scientific/protected/release gates remain."
+    ],
+    "new_scientific_trials": 0,
+    "new_tests": 36,
+    "paid_compute": 0,
+    "parent_advance": "Preserved all 17 files from advanced parent; model/train unchanged; eval independent integration review passed",
+    "parent_commit": "2432bc18801d87e8d61f6554393055f9ea5e7d3f",
+    "prior_receipt": "research/verification/independent_batch_20261010/receipt.json",
+    "protected_outcomes": false,
+    "source_sha256": {
+      "src/gmf/eval.py": "2b4a647e385bcf995a3281c8aec37062331286eb7d26bc0fffbead751b10df3d",
+      "src/gmf/model.py": "0d12c63296cb65b1bd2ead3089e8a678cc4f7eadf764d6f8cfc7324ef09d6dfa",
+      "src/gmf/train.py": "3662dc701b9c757c9ab60335e8497c070d69ca2d949f6d974f93edc502389488",
+      "tests/test_independent_batch_execution.py": "82e088e4946031ffaf6f3c297e9e26d5083f16efa84083cd46b3b4392cd388cd"
+    },
+    "status": "LOCAL_VERIFIED_AFTER_ADVANCED_PARENT_INTEGRATION_AND_INDEPENDENT_REVIEW",
+    "verification_receipt": "research/verification/independent_batch_20261010/combined_parent_advance_receipt.json"
+  },
   "independent_source_review": "PASS_AFTER_ONE_REPAIR: finance_space reproduced coherent incorrect seed metadata, then reviewed the independently derived seed/current-runtime correction and retained parent behaviors. See independent_review.json.",
   "intended_contribution": "A verified engineering foundation for testing the existing Gaussian-memory hypothesis; scientific novelty and efficacy remain unestablished.",
   "latest_engineering_change": {
     "date": "2026-10-10",
     "event": "Added durable exclusive evaluation attempts and aligned finite model-output admission on the existing integrated source; preserved all older states/results; passed 158 offline tests and independent source-only review.",
-    "record": "docs/development/evaluation-attempts-20261010.md",
-    "verification_receipt": "research/verification/evaluation_attempts_20261010/receipt.json",
     "new_scientific_trials": 0,
-    "protected_outcomes": false
+    "protected_outcomes": false,
+    "record": "docs/development/evaluation-attempts-20261010.md",
+    "verification_receipt": "research/verification/evaluation_attempts_20261010/receipt.json"
   },
   "pending": [
     "Normal GitHub review and integration of the draft on the selected PR6 stack; original input branches remain preserved.",
@@ -177,10 +234,10 @@
       {
         "date": "2026-10-10",
         "event": "Added durable exclusive evaluation attempts and aligned finite model-output admission on the existing integrated source; preserved all older states/results; passed 158 offline tests and independent source-only review.",
-        "record": "docs/development/evaluation-attempts-20261010.md",
-        "verification_receipt": "research/verification/evaluation_attempts_20261010/receipt.json",
         "new_scientific_trials": 0,
-        "protected_outcomes": false
+        "protected_outcomes": false,
+        "record": "docs/development/evaluation-attempts-20261010.md",
+        "verification_receipt": "research/verification/evaluation_attempts_20261010/receipt.json"
       }
     ],
     "preserved_indices": [
@@ -209,30 +266,30 @@
   "scientific_objective": "Make the existing component interventions execute with reviewed synthetic-v2 data and Gaussian-memory equations so a future valid protocol can test their necessity.",
   "updated_utc_date": "2026-10-10",
   "validation": {
-    "status": "PASSED_ENGINEERING_ONLY",
-    "receipt": "research/verification/evaluation_attempts_20261010/receipt.json",
-    "passed": 158,
-    "new_tests": 12,
-    "inherited_tests": 146,
-    "pytest_seconds": 38.55,
-    "command_seconds": 42.79021992700291,
-    "log": "full_suite.log",
-    "xml": "full_suite.xml",
-    "command_record": "test_run.json",
     "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=. OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 python -m pytest -q -W error tests",
+    "command_record": "test_run.json",
+    "command_seconds": 42.79021992700291,
+    "independent_review": {
+      "findings": "Exact prediction shape prevents cross-sample broadcast; finite target/prediction/uncertainty admitted before metrics; fsynced per-batch started/completed journal retains prior batch; exclusive attempt and hard-link final publication preserve existing evidence.",
+      "reviewer": "parent root agent",
+      "status": "NO_SCOPED_BLOCKER",
+      "type": "source-only; tests not rerun"
+    },
+    "inherited_tests": 146,
+    "log": "full_suite.log",
+    "new_tests": 12,
+    "passed": 158,
+    "pytest_seconds": 38.55,
+    "receipt": "research/verification/evaluation_attempts_20261010/receipt.json",
     "ruff": "E4,E7,E9,F passed",
-    "whitespace": "passed",
     "source_sha256": {
       "src/gmf/eval.py": "4bf939936285e3d9ebb1ba832dc2bcb2e6ba66b98c992549155b97e443a02d23",
-      "tests/test_evaluation_attempts.py": "308cb8c79e510990fa1d042c0b76f234b273507dde7138b2c17c3583ce5f70ef",
-      "tests/test_ablation_checkpoint_identity.py": "161e321d85149a90703cc5982c1efda4b015c267501dfaad08a271b8c5d13edf"
+      "tests/test_ablation_checkpoint_identity.py": "161e321d85149a90703cc5982c1efda4b015c267501dfaad08a271b8c5d13edf",
+      "tests/test_evaluation_attempts.py": "308cb8c79e510990fa1d042c0b76f234b273507dde7138b2c17c3583ce5f70ef"
     },
-    "independent_review": {
-      "reviewer": "parent root agent",
-      "type": "source-only; tests not rerun",
-      "status": "NO_SCOPED_BLOCKER",
-      "findings": "Exact prediction shape prevents cross-sample broadcast; finite target/prediction/uncertainty admitted before metrics; fsynced per-batch started/completed journal retains prior batch; exclusive attempt and hard-link final publication preserve existing evidence."
-    }
+    "status": "PASSED_ENGINEERING_ONLY",
+    "whitespace": "passed",
+    "xml": "full_suite.xml"
   },
   "verification_history": [
     {
@@ -299,32 +356,6 @@
       "implementation_revision": "gmf.integrated-development.v1",
       "preserved_state": "research/verification/evaluation_attempts_20261010/parent_state.json",
       "reason": "Full previous canonical state, closed budgets, 146-test receipt and original retained demonstration are unchanged in this snapshot."
-    }
-  ],
-  "development_continuations": [
-    {
-      "id": "gmf-evaluation-evidence-20261010",
-      "status": "ENGINEERING_VERIFIED",
-      "parent_commit": "bdb3a82c600c316c424af586813aa9ef7240066d",
-      "contract": "docs/development/evaluation-attempts-20261010.md",
-      "budget": {
-        "max_full_test_commands": 2,
-        "max_focused_test_commands": 4,
-        "max_test_seconds": 600,
-        "scientific_trials": 0,
-        "paid_compute": 0,
-        "protected_outcomes": 0
-      },
-      "parent_state": "research/verification/evaluation_attempts_20261010/parent_state.json",
-      "verification_receipt": "research/verification/evaluation_attempts_20261010/receipt.json",
-      "passed_tests": 158,
-      "independent_review": {
-        "reviewer": "parent root agent",
-        "type": "source-only; tests not rerun",
-        "status": "NO_SCOPED_BLOCKER",
-        "findings": "Exact prediction shape prevents cross-sample broadcast; finite target/prediction/uncertainty admitted before metrics; fsynced per-batch started/completed journal retains prior batch; exclusive attempt and hard-link final publication preserve existing evidence."
-      },
-      "next_action": "Review the existing integrated PR7 candidate; all scientific gates remain pending."
     }
   ]
 }

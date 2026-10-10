@@ -17,12 +17,16 @@ from .model import GMFModel, MeanPoolMLP, GRUReasoner, TransformerReasoner
 from .utils import set_seed, save_checkpoint, save_json, ensure_dir
 
 
-def build_model(name: str, dim: int, memory_cells: int):
+def build_model(name: str, dim: int, memory_cells: int, *, execution_mode: str = "serial-v1"):
     name = name.lower()
+    if execution_mode not in {"serial-v1", "batched-v1"}:
+        raise ValueError("execution_mode must be serial-v1 or batched-v1")
+    if execution_mode != "serial-v1" and not (name == "gmf" or name.startswith("gmf_")):
+        raise ValueError("independent batch execution is only available for GMF")
     if name == "gmf":
-        return GMFModel(dim=dim, memory_cells=memory_cells)
+        return GMFModel(dim=dim, memory_cells=memory_cells, execution_mode=execution_mode)
     if name.startswith("gmf_"):
-        return build_ablation(name.removeprefix("gmf_"), dim=dim, memory_cells=memory_cells)
+        return build_ablation(name.removeprefix("gmf_"), dim=dim, memory_cells=memory_cells, execution_mode=execution_mode)
     if name == "mlp":
         return MeanPoolMLP(dim=dim)
     if name == "gru":
@@ -47,6 +51,7 @@ def run_train(
     seed: int = 0,
     device: str = "cpu",
     out_dir: str = "outputs",
+    execution_mode: str = "serial-v1",
 ):
     if type(steps) is not int or steps < 1:
         raise ValueError("steps must be a positive integer")
@@ -55,7 +60,7 @@ def run_train(
     configuration = dict(benchmark=benchmark, model_name=model_name, dim=dim,
                          memory_cells=memory_cells, seq_len=seq_len, n_pairs=n_pairs,
                          distractors=distractors, noise=noise, batch_size=batch_size,
-                         steps=steps, lr=lr, seed=seed, device=device)
+                         steps=steps, lr=lr, seed=seed, device=device, execution_mode=execution_mode)
     set_seed(seed)
     out_root = ensure_dir(out_dir)
     run_dir = Path(out_root) / f"{benchmark}_{model_name}_seed{seed}"
@@ -72,7 +77,7 @@ def run_train(
         save_json(run_dir / "run_manifest.json", manifest, overwrite=False)
         cfg = BenchmarkConfig(name=benchmark, dim=dim, seq_len=seq_len, n_pairs=n_pairs, distractors=distractors, noise=noise, seed=seed)
         data_generator, data_stream = make_data_stream(cfg, "train")
-        model = build_model(model_name, dim=dim, memory_cells=memory_cells).to(device)
+        model = build_model(model_name, dim=dim, memory_cells=memory_cells, execution_mode=execution_mode).to(device)
         opt = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-4)
         bench = benchmark_registry[benchmark]
         with (run_dir / "train_history.jsonl").open("x", encoding="utf-8") as journal:
@@ -109,7 +114,7 @@ def run_train(
                     print(encoded)
         save_json(run_dir / "train_history.json", history, overwrite=False)
         data_stream["batches"] = len(history)
-        save_checkpoint(run_dir / "checkpoint.pt", model, opt, steps, extra={"benchmark": benchmark, "model_name": model_name, "cfg": cfg.__dict__, "memory_cells": memory_cells, "data_stream": data_stream})
+        save_checkpoint(run_dir / "checkpoint.pt", model, opt, steps, extra={"benchmark": benchmark, "model_name": model_name, "cfg": cfg.__dict__, "memory_cells": memory_cells, "data_stream": data_stream, "execution_mode": execution_mode})
         save_json(run_dir / "data_stream.json", data_stream, overwrite=False)
         save_json(run_dir / "run_status.json", {"status": "completed", "completed_steps": len(history),
                   "attempted_step": step, "last_batch_sha256": batch_sha256,
@@ -139,6 +144,7 @@ def main():
     p.add_argument("--lr", type=float, default=3e-4)
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--device", default="cpu")
+    p.add_argument("--execution-mode", choices=("serial-v1", "batched-v1"), default="serial-v1")
     p.add_argument("--out_dir", default="outputs")
     args = p.parse_args()
     run_train(**vars(args))

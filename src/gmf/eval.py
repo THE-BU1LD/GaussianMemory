@@ -18,12 +18,16 @@ from .model import GMFModel, MeanPoolMLP, GRUReasoner, TransformerReasoner
 from .utils import load_checkpoint, set_seed
 
 
-def build_model(name: str, dim: int, memory_cells: int):
+def build_model(name: str, dim: int, memory_cells: int, *, execution_mode: str = "serial-v1"):
     name = name.lower()
+    if execution_mode not in {"serial-v1", "batched-v1"}:
+        raise ValueError("execution_mode must be serial-v1 or batched-v1")
+    if execution_mode != "serial-v1" and not (name == "gmf" or name.startswith("gmf_")):
+        raise ValueError("independent batch execution is only available for GMF")
     if name == "gmf":
-        return GMFModel(dim=dim, memory_cells=memory_cells)
+        return GMFModel(dim=dim, memory_cells=memory_cells, execution_mode=execution_mode)
     if name.startswith("gmf_"):
-        return build_ablation(name.removeprefix("gmf_"), dim=dim, memory_cells=memory_cells)
+        return build_ablation(name.removeprefix("gmf_"), dim=dim, memory_cells=memory_cells, execution_mode=execution_mode)
     if name == "mlp":
         return MeanPoolMLP(dim=dim)
     if name == "gru":
@@ -120,6 +124,7 @@ def run_eval(
     device: str = "cpu",
     out_dir: str = "outputs",
     allow_ablation_override: bool = False,
+    execution_mode: str = "serial-v1",
 ):
     out_root = Path(out_dir)
     output_path = Path(out_root) / f"eval_{benchmark}_{model_name}_seed{seed}.json"
@@ -135,6 +140,7 @@ def run_eval(
         "distractors": distractors, "noise": noise, "batch_size": batch_size,
         "batches": batches, "seed": seed, "device": str(device),
         "allow_ablation_override": allow_ablation_override,
+        "execution_mode": execution_mode,
     }
     try:
         _write_evaluation_json(attempt_dir / "manifest.json", {
@@ -146,9 +152,10 @@ def run_eval(
         })
         set_seed(seed)
         cfg = BenchmarkConfig(name=benchmark, dim=dim, seq_len=seq_len, n_pairs=n_pairs, distractors=distractors, noise=noise, seed=seed)
-        model = build_model(model_name, dim=dim, memory_cells=memory_cells).to(device)
+        model = build_model(model_name, dim=dim, memory_cells=memory_cells, execution_mode=execution_mode).to(device)
         checkpoint_contract = None
         checkpoint_sha256 = None
+        trained_execution_mode = None
         if ckpt:
             payload = load_checkpoint(
                 ckpt, model, None, expected_model_name=model_name,
@@ -159,10 +166,13 @@ def run_eval(
                 allow_ablation_override=allow_ablation_override,
             )
             checkpoint_sha256 = payload["checkpoint_sha256"]
+            trained_execution_mode = payload["extra"].get("execution_mode", "serial-v1")
         _write_evaluation_json(attempt_dir / "model_identity.json", {
             "model_state": "checkpoint" if ckpt else "untrained seeded initialization",
             "checkpoint_sha256": checkpoint_sha256,
             "checkpoint_model_contract": checkpoint_contract,
+            "execution_mode": execution_mode,
+            "trained_execution_mode": trained_execution_mode,
         })
         with (attempt_dir / "batches.jsonl").open("x", encoding="utf-8") as journal:
             def record_event(event):
@@ -180,6 +190,8 @@ def run_eval(
             )
         result = {
             "implementation_revision": "gmf.integrated-development.v1",
+            "execution_mode": execution_mode,
+            "trained_execution_mode": trained_execution_mode,
             "benchmark": benchmark, "model": model_name, "data_stream": data_stream,
             "checkpoint_sha256": checkpoint_sha256,
             "model_state": "checkpoint" if ckpt else "untrained seeded initialization",
@@ -220,6 +232,7 @@ def main():
     p.add_argument("--batches", type=int, default=20)
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--device", default="cpu")
+    p.add_argument("--execution-mode", choices=("serial-v1", "batched-v1"), default="serial-v1")
     p.add_argument("--out_dir", default="outputs")
     p.add_argument("--allow-ablation-override", action="store_true",
                    help="Record an intentional within-GMF change from the trained control")

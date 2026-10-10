@@ -1,0 +1,19 @@
+{
+  "reviewer": "finance_next independent advanced-parent integration review",
+  "status": "PASS",
+  "source": "src/gmf/eval.py",
+  "source_sha256": "2b4a647e385bcf995a3281c8aec37062331286eb7d26bc0fffbead751b10df3d",
+  "parent": "2432bc18801d87e8d61f6554393055f9ea5e7d3f",
+  "checks": [
+    {
+      "probe": "actual_batched_evaluation_mode_manifest_identity_result_and_durable_journal",
+      "status": "pass",
+      "completed_batches": 2
+    },
+    {
+      "probe": "injected_nonfinite_prediction_retains_started_batch_and_failed_status_without_final_result",
+      "status": "pass"
+    }
+  ],
+  "static_diff_scope": "Only execution_mode factory/argument/CLI and configuration/model_identity/result metadata differences against exact advanced-parent eval.py. Durable attempt creation, batch journaling, finite checks, result hard-link and failure status code are retained unchanged. Model batching source still matches earlier independent review."
+}

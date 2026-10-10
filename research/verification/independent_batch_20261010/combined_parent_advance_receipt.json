@@ -1,0 +1,80 @@
+{
+  "schema": "research.engineering-verification.v1",
+  "status": "LOCAL_VERIFIED_AFTER_ADVANCED_PARENT_INTEGRATION_AND_INDEPENDENT_REVIEW",
+  "implementation_revision": "gmf.independent-batch.v1",
+  "parent_commit": "2432bc18801d87e8d61f6554393055f9ea5e7d3f",
+  "parent_tree": "d705c39b78665aeea6a644257f8574e030c85066",
+  "initial_parent_commit": "bdb3a82c600c316c424af586813aa9ef7240066d",
+  "initial_receipt": "receipt.json",
+  "unpublished_initial_candidate_commit": "d5e73786d5f4c112ff5bc52dfd29079208b37ba4",
+  "unpublished_initial_candidate_branch": "codex/gmf-independent-batch-20261010",
+  "scope": "Preserve advanced parent evaluation evidence and finite guards; add independently reviewed sequence batching and execution-mode metadata only",
+  "source_sha256": {
+    "src/gmf/model.py": "0d12c63296cb65b1bd2ead3089e8a678cc4f7eadf764d6f8cfc7324ef09d6dfa",
+    "src/gmf/train.py": "3662dc701b9c757c9ab60335e8497c070d69ca2d949f6d974f93edc502389488",
+    "src/gmf/eval.py": "2b4a647e385bcf995a3281c8aec37062331286eb7d26bc0fffbead751b10df3d",
+    "tests/test_independent_batch_execution.py": "82e088e4946031ffaf6f3c297e9e26d5083f16efa84083cd46b3b4392cd388cd"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.14.1+cpu",
+    "numpy": "2.3.5",
+    "pytest": "9.1.1",
+    "device": "CPU",
+    "threads": 1
+  },
+  "verification": {
+    "passed": 194,
+    "inherited": 158,
+    "new": 36,
+    "pytest_seconds": 33.8,
+    "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=. OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 python -m pytest -q tests -W error",
+    "log": "combined_parent_advance.log",
+    "xml": "combined_parent_advance.xml",
+    "ruff": "E4,E7,E9,F passed"
+  },
+  "independent_model_review": "finance_independent_review.json",
+  "independent_advanced_parent_review": {
+    "reviewer": "finance_next independent advanced-parent integration review",
+    "status": "PASS",
+    "source": "src/gmf/eval.py",
+    "source_sha256": "2b4a647e385bcf995a3281c8aec37062331286eb7d26bc0fffbead751b10df3d",
+    "parent": "2432bc18801d87e8d61f6554393055f9ea5e7d3f",
+    "checks": [
+      {
+        "probe": "actual_batched_evaluation_mode_manifest_identity_result_and_durable_journal",
+        "status": "pass",
+        "completed_batches": 2
+      },
+      {
+        "probe": "injected_nonfinite_prediction_retains_started_batch_and_failed_status_without_final_result",
+        "status": "pass"
+      }
+    ],
+    "static_diff_scope": "Only execution_mode factory/argument/CLI and configuration/model_identity/result metadata differences against exact advanced-parent eval.py. Durable attempt creation, batch journaling, finite checks, result hard-link and failure status code are retained unchanged. Model batching source still matches earlier independent review."
+  },
+  "model_and_training_unchanged_since_initial_review": true,
+  "profile": {
+    "receipt": "profile.json",
+    "scope": "One generated float32 CPU1thread eval-no-grad B16,T17,D16,cells32,layers2,refine3 fixture; seven timings per mode",
+    "serial_median_seconds": 0.7753118599939626,
+    "batched_median_seconds": 0.04704991901235189,
+    "ratio_for_this_fixture": 16.478495101987782,
+    "prediction_max_abs_difference": 1.1920928955078125e-07
+  },
+  "parent_history_preservation": "All advanced parent canonical-state values retained; all parent files retained unchanged except declared model/train/eval source and append-only state continuation; all other tree leaves retained byte-for-byte",
+  "failure_history": [
+    "Initial comparison-oracle harness omitted __package__, producing 31 setup failures and 5 passes with warnings as errors. Harness corrected without model changes; original candidate_1 log/XML retained.",
+    "Final prepublication check found parent advance bdb3a82\u21922432bc1. Initial candidate branch/commit remains intact. Entire 17-file parent delta incorporated; advanced-parent combined194 suite and separate integration review passed."
+  ],
+  "limitations": [
+    "CPU Torch2.14.1 only for executed comparisons; matrix batching may change floating-point rounding, not bitwise trajectories.",
+    "Default remains serial-v1. Predictor calls preserve dropout RNG order/shape; no batch-row memory mixing.",
+    "Temporary independent bank storage scales with batch size. Fixed-fixture timing is not a general throughput or scientific performance claim.",
+    "No protected data, GPU/paid compute, external provider calls, new scientific trials, scientific efficacy result, study rewrite or merge. Hosted CI is verified separately at the published head."
+  ],
+  "scientific_disposition": "UNVALIDATED_INFRASTRUCTURE",
+  "new_scientific_trials": 0,
+  "paid_compute": 0,
+  "protected_outcomes": false
+}

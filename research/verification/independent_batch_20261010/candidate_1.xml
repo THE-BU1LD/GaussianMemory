@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="31" skipped="0" tests="36" time="5.273" timestamp="2026-10-10T18:52:57.787270+09:00" hostname="ad27613feed7"><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype0-False-full]" time="0.009"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'full', training = False, dtype = torch.float32
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'full'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype0-False-no_memory]" time="0.006"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'no_memory', training = False, dtype = torch.float32
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'no_memory'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype0-False-no_controller]" time="0.007"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'no_controller', training = False, dtype = torch.float32
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'no_controller'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype0-False-no_refine]" time="0.006"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'no_refine', training = False, dtype = torch.float32
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'no_refine'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype0-False-single_memory]" time="0.007"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'single_memory', training = False, dtype = torch.float32
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'single_memory'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype0-True-full]" time="0.006"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'full', training = True, dtype = torch.float32
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'full'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype0-True-no_memory]" time="0.006"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'no_memory', training = True, dtype = torch.float32
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'no_memory'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype0-True-no_controller]" time="0.007"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'no_controller', training = True, dtype = torch.float32
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'no_controller'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype0-True-no_refine]" time="0.007"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'no_refine', training = True, dtype = torch.float32
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'no_refine'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype0-True-single_memory]" time="0.006"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'single_memory', training = True, dtype = torch.float32
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'single_memory'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype1-False-full]" time="0.006"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'full', training = False, dtype = torch.float64
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'full'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype1-False-no_memory]" time="0.006"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'no_memory', training = False, dtype = torch.float64
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'no_memory'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype1-False-no_controller]" time="0.005"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'no_controller', training = False, dtype = torch.float64
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'no_controller'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype1-False-no_refine]" time="0.007"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'no_refine', training = False, dtype = torch.float64
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'no_refine'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype1-False-single_memory]" time="0.008"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'single_memory', training = False, dtype = torch.float64
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'single_memory'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype1-True-full]" time="0.005"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'full', training = True, dtype = torch.float64
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'full'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype1-True-no_memory]" time="0.006"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'no_memory', training = True, dtype = torch.float64
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'no_memory'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype1-True-no_controller]" time="0.006"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'no_controller', training = True, dtype = torch.float64
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'no_controller'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype1-True-no_refine]" time="0.007"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'no_refine', training = True, dtype = torch.float64
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'no_refine'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_parent_outputs_gradients_state_and_dropout_rng[dtype1-True-single_memory]" time="0.006"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">ablation = 'single_memory', training = True, dtype = torch.float64
+
+    @pytest.mark.parametrize("ablation", tuple(ablation_plan()))
+    @pytest.mark.parametrize("training", [False, True])
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+    def test_parent_outputs_gradients_state_and_dropout_rng(ablation, training, dtype):
+&gt;       reference, candidate = models(ablation, dtype, training)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'single_memory'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_each_sequence_has_private_memory_and_successive_calls_reset[1-False]" time="0.006"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">batch = 1, write = False
+
+    @pytest.mark.parametrize("write", [False, True])
+    @pytest.mark.parametrize("batch", [1, 4])
+    def test_each_sequence_has_private_memory_and_successive_calls_reset(batch, write):
+&gt;       reference, candidate = models()
+                               ^^^^^^^^
+
+tests/test_independent_batch_execution.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'full'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_each_sequence_has_private_memory_and_successive_calls_reset[1-True]" time="0.006"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">batch = 1, write = True
+
+    @pytest.mark.parametrize("write", [False, True])
+    @pytest.mark.parametrize("batch", [1, 4])
+    def test_each_sequence_has_private_memory_and_successive_calls_reset(batch, write):
+&gt;       reference, candidate = models()
+                               ^^^^^^^^
+
+tests/test_independent_batch_execution.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'full'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_each_sequence_has_private_memory_and_successive_calls_reset[4-False]" time="0.008"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">batch = 4, write = False
+
+    @pytest.mark.parametrize("write", [False, True])
+    @pytest.mark.parametrize("batch", [1, 4])
+    def test_each_sequence_has_private_memory_and_successive_calls_reset(batch, write):
+&gt;       reference, candidate = models()
+                               ^^^^^^^^
+
+tests/test_independent_batch_execution.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'full'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_each_sequence_has_private_memory_and_successive_calls_reset[4-True]" time="0.008"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">batch = 4, write = True
+
+    @pytest.mark.parametrize("write", [False, True])
+    @pytest.mark.parametrize("batch", [1, 4])
+    def test_each_sequence_has_private_memory_and_successive_calls_reset(batch, write):
+&gt;       reference, candidate = models()
+                               ^^^^^^^^
+
+tests/test_independent_batch_execution.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'full'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_batching_reduces_encoder_invocations_from_batch_times_time_to_time" time="0.005"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">def test_batching_reduces_encoder_invocations_from_batch_times_time_to_time():
+&gt;       reference, candidate = models()
+                               ^^^^^^^^
+
+tests/test_independent_batch_execution.py:101: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'full'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_default_mode_preserves_retained_outputs_exactly" time="0.006"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">def test_default_mode_preserves_retained_outputs_exactly():
+&gt;       reference, _ = models(training=True)
+                       ^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:120: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'full'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_invalid_batched_input_does_not_clear_existing_state[invalid0]" time="0.007"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">invalid = tensor([], size=(0, 3, 4))
+
+    @pytest.mark.parametrize("invalid", [torch.zeros(0, 3, 4), torch.zeros(2, 0, 4),
+                                       torch.zeros(2, 3, 5), torch.ones(2, 3, 4, dtype=torch.int64),
+                                       torch.full((2, 3, 4), float("nan"))])
+    def test_invalid_batched_input_does_not_clear_existing_state(invalid):
+&gt;       _, candidate = models(dtype=torch.float32)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:136: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'full'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_invalid_batched_input_does_not_clear_existing_state[invalid1]" time="0.007"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">invalid = tensor([], size=(2, 0, 4))
+
+    @pytest.mark.parametrize("invalid", [torch.zeros(0, 3, 4), torch.zeros(2, 0, 4),
+                                       torch.zeros(2, 3, 5), torch.ones(2, 3, 4, dtype=torch.int64),
+                                       torch.full((2, 3, 4), float("nan"))])
+    def test_invalid_batched_input_does_not_clear_existing_state(invalid):
+&gt;       _, candidate = models(dtype=torch.float32)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:136: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'full'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_invalid_batched_input_does_not_clear_existing_state[invalid2]" time="0.006"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">invalid = tensor([[[0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.]],
+
+        [[0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.]]])
+
+    @pytest.mark.parametrize("invalid", [torch.zeros(0, 3, 4), torch.zeros(2, 0, 4),
+                                       torch.zeros(2, 3, 5), torch.ones(2, 3, 4, dtype=torch.int64),
+                                       torch.full((2, 3, 4), float("nan"))])
+    def test_invalid_batched_input_does_not_clear_existing_state(invalid):
+&gt;       _, candidate = models(dtype=torch.float32)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:136: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'full'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_invalid_batched_input_does_not_clear_existing_state[invalid3]" time="0.005"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">invalid = tensor([[[1, 1, 1, 1],
+         [1, 1, 1, 1],
+         [1, 1, 1, 1]],
+
+        [[1, 1, 1, 1],
+         [1, 1, 1, 1],
+         [1, 1, 1, 1]]])
+
+    @pytest.mark.parametrize("invalid", [torch.zeros(0, 3, 4), torch.zeros(2, 0, 4),
+                                       torch.zeros(2, 3, 5), torch.ones(2, 3, 4, dtype=torch.int64),
+                                       torch.full((2, 3, 4), float("nan"))])
+    def test_invalid_batched_input_does_not_clear_existing_state(invalid):
+&gt;       _, candidate = models(dtype=torch.float32)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:136: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'full'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_invalid_batched_input_does_not_clear_existing_state[invalid4]" time="0.007"><failure message="ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__">invalid = tensor([[[nan, nan, nan, nan],
+         [nan, nan, nan, nan],
+         [nan, nan, nan, nan]],
+
+        [[nan, nan, nan, nan],
+         [nan, nan, nan, nan],
+         [nan, nan, nan, nan]]])
+
+    @pytest.mark.parametrize("invalid", [torch.zeros(0, 3, 4), torch.zeros(2, 0, 4),
+                                       torch.zeros(2, 3, 5), torch.ones(2, 3, 4, dtype=torch.int64),
+                                       torch.full((2, 3, 4), float("nan"))])
+    def test_invalid_batched_input_does_not_clear_existing_state(invalid):
+&gt;       _, candidate = models(dtype=torch.float32)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_independent_batch_execution.py:136: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_independent_batch_execution.py:34: in models
+    reference = retained_model()(dim=4, layers=2, memory_cells=5,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = GMFModel(), dim = 4, layers = 2, memory_cells = 5, refine_steps = 2
+latent_decay = 0.85, ablation = 'full'
+
+    def __init__(
+        self,
+        dim: int = 64,
+        layers: int = 2,
+        memory_cells: int = 128,
+        refine_steps: int = 3,
+        latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
+    ):
+        super().__init__()
+&gt;       from .ablations import ablation_plan
+E       ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
+
+research/verification/independent_batch_20261010/parent_model.py:208: ImportWarning</failure></testcase><testcase classname="tests.test_independent_batch_execution" name="test_explicit_mode_factory_and_checkpoint_to_evaluation" time="1.953" /><testcase classname="tests.test_independent_batch_execution" name="test_factory_rejects_unsupported_modes[mlp]" time="0.001" /><testcase classname="tests.test_independent_batch_execution" name="test_factory_rejects_unsupported_modes[gru]" time="0.001" /><testcase classname="tests.test_independent_batch_execution" name="test_factory_rejects_unsupported_modes[transformer]" time="0.001" /><testcase classname="tests.test_independent_batch_execution" name="test_factory_rejects_unsupported_modes[gmf]" time="0.001" /></testsuite></testsuites>
