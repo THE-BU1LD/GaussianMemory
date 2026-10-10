@@ -1,4 +1,5 @@
 """Checkpoint shape compatibility must not silently select another control."""
+import json
 from unittest.mock import patch
 
 import pytest
@@ -27,7 +28,12 @@ def test_accidental_ablation_change_fails_before_loading_or_evaluating(tmp_path)
     with patch("src.gmf.eval.evaluate", side_effect=AssertionError("evaluation started")):
         with pytest.raises(ValueError, match="ablation differs"):
             run_eval(model_name="gmf_full", ckpt=path, dim=4, memory_cells=5, out_dir=tmp_path / "output")
-    assert not (tmp_path / "output").exists()
+    # Admission still blocks model-state loading and evaluation. The new
+    # evaluation-evidence contract retains this rejected attempt explicitly.
+    attempt = tmp_path / "output" / "eval_associative_recall_gmf_full_seed0.attempt"
+    status = json.loads((attempt / "status.json").read_text())
+    assert status["status"] == "failed" and status["completed_batches"] == 0
+    assert not (tmp_path / "output" / "eval_associative_recall_gmf_full_seed0.json").exists()
 
 
 @pytest.mark.parametrize("trained,requested", [("gmf", "gmf_full"), ("gmf_full", "GMF"), ("gmf_no_memory", "gmf_no_memory")])

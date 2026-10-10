@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_evaluation_attempts.py"
+  ],
+  "seconds": 9.476075429003686,
+  "exit_code": 1
+}
