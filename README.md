@@ -27,3 +27,17 @@ bash experiments/run_all.sh
 ```
 
 For publication-facing evidence, freeze a multi-seed protocol and generate every empirical table/figure directly from retained raw outputs rather than from illustrative manuscript coordinates.
+
+## Versioned synthetic data and retained runs
+
+The train/eval runners use the `gmf.synthetic.v2` data contract: advancing,
+domain-separated training and evaluation streams, matched draws across models,
+and an unobserved next-state target for temporal prediction. Per-batch hashes,
+stream configuration, generator source identity, and evaluated checkpoint hashes
+are recorded. Existing run directories and evaluation files are not overwritten;
+use a fresh `--out_dir` for another run. Evaluation filenames include the seed.
+
+See [the development integrity record](docs/development/synthetic-streams-20261010.md)
+for the executable commands, compatibility changes, and limitations. These
+engineering corrections do not establish model superiority or replace the
+publication evidence requirements in `RESEARCH_TRUTH.md`.
