@@ -1,0 +1,220 @@
+{
+  "claim_boundary": "Component execution only. No advancement rule, statistical confirmation, compute matching, calibrated uncertainty, or protected-data authorization. Audit and freeze the integrated data-generation protocol before a scientific run.",
+  "configuration": {
+    "batch_size": 2,
+    "benchmark": "temporal_prediction",
+    "device": "cpu",
+    "dim": 4,
+    "distractors": 8,
+    "eval_batches": 2,
+    "lr": 0.0003,
+    "memory_cells": 5,
+    "n_pairs": 1,
+    "noise": 0.05,
+    "seed": 71,
+    "seq_len": 3,
+    "steps": 2
+  },
+  "data_schema": "gmf.synthetic.v2",
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.14.1+cpu"
+  },
+  "format": "gmf-component-ablations-v2",
+  "implementation_revision": "gmf.integrated-development.v1",
+  "paired_streams": {
+    "evaluation": {
+      "batch_sha256": [
+        "268963dbfc4661b22909abba89af02c07a1c4dbe51e584226518e872af85e4c6",
+        "0c932b0985dcda85b3f6d5a616ae69dfd3e6520399a779eda341c456a23d9145"
+      ],
+      "metadata": {
+        "batches": 2,
+        "config": {
+          "dim": 4,
+          "distractors": 8,
+          "n_pairs": 1,
+          "name": "temporal_prediction",
+          "noise": 0.05,
+          "seed": 71,
+          "seq_len": 3
+        },
+        "data_source_sha256": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+        "generator_device": "cpu",
+        "generator_seed": 2266992284441732206,
+        "schema": "gmf.synthetic.v2",
+        "split": "evaluation",
+        "torch_version": "2.14.1+cpu"
+      }
+    },
+    "train": {
+      "batch_sha256": [
+        "5d54125a55c3caeddf1887d4dfe66385eb3835d25cda9fd754cf8ee88fba5e21",
+        "2bd798928ed8f88488218cc473c00cadcf78392572ba6080c23e1cea8845b1fa"
+      ],
+      "metadata": {
+        "batches": 2,
+        "config": {
+          "dim": 4,
+          "distractors": 8,
+          "n_pairs": 1,
+          "name": "temporal_prediction",
+          "noise": 0.05,
+          "seed": 71,
+          "seq_len": 3
+        },
+        "data_source_sha256": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+        "generator_device": "cpu",
+        "generator_seed": 7768412110359320156,
+        "schema": "gmf.synthetic.v2",
+        "split": "train",
+        "torch_version": "2.14.1+cpu"
+      }
+    }
+  },
+  "runs": [
+    {
+      "ablation": "full",
+      "checkpoint": "gmf_full/checkpoint.pt",
+      "checkpoint_sha256": "0dcae099addd18efcc19597b24711a7271c6448ba34de96cc18a5dfae50cf774",
+      "evaluation": {
+        "checkpoint_model_contract": {
+          "ablation_intervention": false,
+          "evaluation_model": "gmf_full",
+          "override_authorized": false,
+          "schema": "gmf.checkpoint-evaluation.v1",
+          "trained_model": "gmf_full"
+        },
+        "checkpoint_sha256": "0dcae099addd18efcc19597b24711a7271c6448ba34de96cc18a5dfae50cf774",
+        "data_stream": {
+          "batches": 2,
+          "config": {
+            "dim": 4,
+            "distractors": 8,
+            "n_pairs": 1,
+            "name": "temporal_prediction",
+            "noise": 0.05,
+            "seed": 71,
+            "seq_len": 3
+          },
+          "data_source_sha256": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+          "generator_device": "cpu",
+          "generator_seed": 2266992284441732206,
+          "schema": "gmf.synthetic.v2",
+          "split": "evaluation",
+          "torch_version": "2.14.1+cpu"
+        },
+        "metrics": [
+          {
+            "batch_sha256": "268963dbfc4661b22909abba89af02c07a1c4dbe51e584226518e872af85e4c6"
+          },
+          {
+            "batch_sha256": "0c932b0985dcda85b3f6d5a616ae69dfd3e6520399a779eda341c456a23d9145"
+          }
+        ],
+        "model": "gmf_full"
+      },
+      "model_name": "gmf_full",
+      "pairing_verified": true,
+      "status": "completed",
+      "training_batch_sha256": [
+        "5d54125a55c3caeddf1887d4dfe66385eb3835d25cda9fd754cf8ee88fba5e21",
+        "2bd798928ed8f88488218cc473c00cadcf78392572ba6080c23e1cea8845b1fa"
+      ]
+    },
+    {
+      "ablation": "no_memory",
+      "checkpoint": "gmf_no_memory/checkpoint.pt",
+      "checkpoint_sha256": "0dcae099addd18efcc19597b24711a7271c6448ba34de96cc18a5dfae50cf774",
+      "error": "evaluation stream differs from the first component control",
+      "error_type": "ValueError",
+      "evaluation": {
+        "checkpoint_model_contract": {
+          "ablation_intervention": false,
+          "evaluation_model": "gmf_no_memory",
+          "override_authorized": false,
+          "schema": "gmf.checkpoint-evaluation.v1",
+          "trained_model": "gmf_no_memory"
+        },
+        "checkpoint_sha256": "0dcae099addd18efcc19597b24711a7271c6448ba34de96cc18a5dfae50cf774",
+        "data_stream": {
+          "batches": 2,
+          "config": {
+            "dim": 4,
+            "distractors": 8,
+            "n_pairs": 1,
+            "name": "temporal_prediction",
+            "noise": 0.05,
+            "seed": 71,
+            "seq_len": 3
+          },
+          "data_source_sha256": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+          "generator_device": "cpu",
+          "generator_seed": 2266992284441732206,
+          "schema": "gmf.synthetic.v2",
+          "split": "evaluation",
+          "torch_version": "2.14.1+cpu"
+        },
+        "metrics": [
+          {
+            "batch_sha256": "0c932b0985dcda85b3f6d5a616ae69dfd3e6520399a779eda341c456a23d9145"
+          },
+          {
+            "batch_sha256": "268963dbfc4661b22909abba89af02c07a1c4dbe51e584226518e872af85e4c6"
+          }
+        ],
+        "model": "gmf_no_memory"
+      },
+      "model_name": "gmf_no_memory",
+      "status": "failed",
+      "traceback": "Traceback (most recent call last):\n  File \"/workspace/scratch/2a0c1e6ddd92/integration-repos/GaussianMemory/src/gmf/ablations.py\", line 221, in run_component_ablations\n    evaluation_stream = admit_stream(\n                        ^^^^^^^^^^^^^\n  File \"/workspace/scratch/2a0c1e6ddd92/integration-repos/GaussianMemory/src/gmf/ablations.py\", line 192, in admit_stream\n    raise ValueError(f\"{split} stream differs from the first component control\")\nValueError: evaluation stream differs from the first component control\n",
+      "training_batch_sha256": [
+        "5d54125a55c3caeddf1887d4dfe66385eb3835d25cda9fd754cf8ee88fba5e21",
+        "2bd798928ed8f88488218cc473c00cadcf78392572ba6080c23e1cea8845b1fa"
+      ]
+    }
+  ],
+  "scope": "development_only",
+  "settings": {
+    "full": {
+      "controller": true,
+      "dual_memory": true,
+      "memory": true,
+      "refine": true
+    },
+    "no_controller": {
+      "controller": false,
+      "dual_memory": true,
+      "memory": true,
+      "refine": true
+    },
+    "no_memory": {
+      "controller": true,
+      "dual_memory": false,
+      "memory": false,
+      "refine": true
+    },
+    "no_refine": {
+      "controller": true,
+      "dual_memory": true,
+      "memory": true,
+      "refine": false
+    },
+    "single_memory": {
+      "controller": true,
+      "dual_memory": false,
+      "memory": true,
+      "refine": true
+    }
+  },
+  "source_sha256": {
+    "ablations.py": "474bdd7ba78145769c953575d44cfb7e716d36226ad5a569f79f4d5bb8ce7cdf",
+    "data.py": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+    "eval.py": "0517b300005b1539944163303cd8e9d646d5eadf9de095323909d0a3019c1d49",
+    "losses.py": "d76c21a74248536ce5b0ec9b11aabe273a9ccfcb328ff6281c28b94519273621",
+    "model.py": "60971d7e2d662fc2cea8734c01a54315e5e2b1b035771281252fddd9307d2d82",
+    "train.py": "845674ad6fbb82f6214edfe07adf66a4aa19e91186fe8dd301361673c33f6007",
+    "utils.py": "a98ff5b09846891400bc277f778e496503f3df3052b0704648f9c42861d6bfc1"
+  },
+  "status": "failed"
+}

@@ -1,0 +1,18 @@
+{
+  "batches": 2,
+  "config": {
+    "dim": 4,
+    "distractors": 8,
+    "n_pairs": 1,
+    "name": "temporal_prediction",
+    "noise": 0.05,
+    "seed": 20261010,
+    "seq_len": 3
+  },
+  "data_source_sha256": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+  "generator_device": "cpu",
+  "generator_seed": 7730007271336951036,
+  "schema": "gmf.synthetic.v2",
+  "split": "train",
+  "torch_version": "2.14.1+cpu"
+}

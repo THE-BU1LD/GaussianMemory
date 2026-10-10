@@ -48,3 +48,30 @@ Do not state these as validated findings until a complete raw-results package ex
 ## Integrity rule
 
 A compiled PDF is not evidence that an experiment ran. Manuscript layout placeholders and illustrative plots must never be presented as measured results. If completed experiments are null or negative, the paper should report that outcome directly.
+
+## Development correction: Gaussian retrieval numerics (10 October 2026)
+
+Two reproducible numerical defects were found in `GaussianMemoryBank`.
+For centers `(0, 0)` and `(1, 0)`, sigma one and query `(50, 0)`, direct
+exponentiation underflowed both Gaussian kernels and returned zero total
+retrieval mass. Separately, subtraction of squared norms at large,
+nearly equal vectors could produce negative squared distances and nonfinite
+hybrid weights. These are implementation counterexamples, not benchmark results.
+
+Gaussian-mode retrieval now normalizes log kernels with softmax. Distances
+use direct pairwise differences through the non-matrix-multiplication distance
+kernel. The cosine and hybrid combination formulas remain the same. Half
+precision distance calculations use float32; float64 stays float64. Invalid
+configuration, malformed/nonfinite inputs and overflowing writes fail before
+the memory values are replaced.
+
+The complete local test suite recorded **48 passed** on PyTorch **2.14.1+cpu**.
+New checks compare all three retrieval modes with independent pairwise-kernel
+references, check query/center gradients, odd numeric ranges, normalized mass,
+half precision and failed-write preservation. A tiny actual GMF backward step
+and the existing train/checkpoint/eval smoke also pass.
+
+This is a development revision. It does not establish benchmark improvement,
+repair the separately identified data-generation/CLI issues by itself, or turn
+illustrative manuscript figures into empirical results. Paper-facing runs still
+require the frozen, matched protocol and retained raw evidence described above.

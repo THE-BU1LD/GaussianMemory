@@ -69,6 +69,44 @@ def build_ablation(name: str = "full", **model_kwargs):
     return GMFModel(ablation=name, **model_kwargs)
 
 
+def _paired_stream_record(metadata, rows, *, split, batches, configuration, source_hash):
+    """Admit a complete observed stream before comparing component controls."""
+    import torch
+    from .data import DATA_SCHEMA
+
+    # Agreement between controls alone cannot catch a common wrong seed. Bind
+    # the first record to the independently reconstructed synthetic-v2 recipe.
+    seed_identity = json.dumps(
+        [DATA_SCHEMA, configuration["name"], configuration["seed"], split],
+        separators=(",", ":"),
+    ).encode("utf-8")
+    expected_seed = int.from_bytes(hashlib.sha256(seed_identity).digest()[:8], "big") % (2**63)
+
+    def digest(value):
+        return (isinstance(value, str) and len(value) == 64
+                and all(character in "0123456789abcdef" for character in value))
+
+    if (not isinstance(metadata, dict) or metadata.get("schema") != DATA_SCHEMA
+            or metadata.get("split") != split
+            or type(metadata.get("batches")) is not int
+            or metadata["batches"] != batches
+            or metadata.get("config") != configuration
+            or metadata.get("generator_device") != "cpu"
+            or type(metadata.get("generator_seed")) is not int
+            or metadata["generator_seed"] != expected_seed
+            or metadata.get("data_source_sha256") != source_hash
+            or metadata.get("torch_version") != str(torch.__version__)):
+        raise ValueError(f"invalid {split} paired-stream metadata")
+    if not isinstance(rows, list) or len(rows) != batches:
+        raise ValueError(f"incomplete {split} paired-stream batch sequence")
+    identities = []
+    for row in rows:
+        if not isinstance(row, dict) or not digest(row.get("batch_sha256")):
+            raise ValueError(f"invalid {split} paired-stream batch identity")
+        identities.append(row["batch_sha256"])
+    return {"metadata": deepcopy(metadata), "batch_sha256": identities}
+
+
 def run_component_ablations(
     out_dir: str | Path,
     *,
@@ -93,7 +131,8 @@ def run_component_ablations(
     """
     import torch
 
-    from .data import benchmark_registry
+    from dataclasses import asdict
+    from .data import BenchmarkConfig, DATA_SCHEMA, benchmark_registry
     from .eval import run_eval
     from .train import run_train
 
@@ -117,7 +156,9 @@ def run_component_ablations(
     )
     source_root = Path(__file__).resolve().parent
     manifest = {
-        "format": "gmf-component-ablations-v1",
+        "format": "gmf-component-ablations-v2",
+        "implementation_revision": "gmf.integrated-development.v1",
+        "data_schema": DATA_SCHEMA,
         "status": "running",
         "scope": "development_only",
         "configuration": {**config, "steps": steps, "eval_batches": eval_batches, "lr": lr},
@@ -133,13 +174,31 @@ def run_component_ablations(
             "Audit and freeze the integrated data-generation protocol before a scientific run."
         ),
         "runs": [],
+        "paired_streams": {"train": None, "evaluation": None},
     }
+    data_configuration = asdict(BenchmarkConfig(
+        name=benchmark, dim=dim, seq_len=seq_len, n_pairs=n_pairs,
+        distractors=distractors, noise=noise, seed=seed,
+    ))
     manifest_path = root / "component_ablations.json"
 
     def save_manifest():
         temporary = root / "component_ablations.json.tmp"
         temporary.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         temporary.replace(manifest_path)
+
+    def admit_stream(metadata, rows, split, batches):
+        record = _paired_stream_record(
+            metadata, rows, split=split, batches=batches,
+            configuration=data_configuration,
+            source_hash=manifest["source_sha256"]["data.py"],
+        )
+        reference = manifest["paired_streams"][split]
+        if reference is None:
+            manifest["paired_streams"][split] = record
+        elif reference != record:
+            raise ValueError(f"{split} stream differs from the first component control")
+        return record
 
     save_manifest()
     for name in manifest["settings"]:
@@ -156,11 +215,32 @@ def run_component_ablations(
             row["checkpoint_sha256"] = hashlib.sha256(checkpoint.read_bytes()).hexdigest()
             row["status"] = "trained"
             save_manifest()
+            train_stream = admit_stream(
+                trained.get("data_stream"), trained.get("history"), "train", steps,
+            )
+            row["training_batch_sha256"] = train_stream["batch_sha256"]
+            save_manifest()
             evaluation = run_eval(
                 **config, model_name=model_name, ckpt=str(checkpoint),
                 batches=eval_batches, out_dir=str(root),
             )
             row["evaluation"] = evaluation
+            save_manifest()
+            evaluation_stream = admit_stream(
+                evaluation.get("data_stream"), evaluation.get("metrics"),
+                "evaluation", eval_batches,
+            )
+            if (train_stream["metadata"]["generator_seed"]
+                    == evaluation_stream["metadata"]["generator_seed"]):
+                raise ValueError("training and evaluation streams must have different domains")
+            if evaluation.get("checkpoint_sha256") != row["checkpoint_sha256"]:
+                raise ValueError("evaluated checkpoint differs from the retained trained checkpoint")
+            expected_control = checkpoint_evaluation_identity(
+                {"model_name": model_name}, model_name,
+            )
+            if evaluation.get("checkpoint_model_contract") != expected_control:
+                raise ValueError("component matrix must evaluate its trained control without an override")
+            row["pairing_verified"] = True
             row["status"] = "completed"
             save_manifest()
         except BaseException as error:
