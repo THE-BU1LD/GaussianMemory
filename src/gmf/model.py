@@ -203,6 +203,7 @@ class GMFModel(nn.Module):
         latent_decay: float = 0.85,
         *,
         ablation: str = "full",
+        execution_mode: str = "serial-v1",
     ):
         super().__init__()
         from .ablations import ablation_plan
@@ -210,6 +211,9 @@ class GMFModel(nn.Module):
         settings = ablation_plan()
         if not isinstance(ablation, str) or ablation not in settings:
             raise ValueError(f"unknown GMF ablation: {ablation!r}")
+        if execution_mode not in {"serial-v1", "batched-v1"}:
+            raise ValueError("execution_mode must be serial-v1 or batched-v1")
+        self.execution_mode = execution_mode
         self.ablation = ablation
         self._ablation_settings = settings[ablation]
         self.dim = dim
@@ -270,9 +274,84 @@ class GMFModel(nn.Module):
             "uncertainty": uncertainty.squeeze(0),
         }
 
+    @staticmethod
+    def _independent_memory(bank, x, values, write):
+        """Read/write one private bank per row; never pool the batch's writes."""
+        weights = bank._similarity(x)
+        memory = torch.bmm(weights.unsqueeze(1), values).squeeze(1)
+        if write:
+            with torch.no_grad():
+                # The serial bank receives one row: its cell denominator is
+                # that row's weight, not a reduction across independent rows.
+                w = weights.detach().unsqueeze(-1)
+                update = (w * x.detach().unsqueeze(1)) / w.clamp_min(1e-6)
+                candidate = values * bank.decay + bank.lr * update
+                if not torch.isfinite(candidate).all():
+                    raise FloatingPointError("memory update produced non-finite values")
+                values = candidate
+        return memory, values
+
+    def _forward_independent_batch(self, seq, write_memory):
+        """Batch deterministic recurrence, retaining serial predictor RNG order."""
+        if (seq.ndim != 3 or seq.shape[0] < 1 or seq.shape[1] < 1
+                or seq.shape[2] != self.dim or not seq.is_floating_point()):
+            raise ValueError("batched GMF input must be nonempty [batch, time, dim] floating data")
+        parameter = next(self.parameters())
+        if seq.device != parameter.device or seq.dtype != parameter.dtype:
+            raise ValueError("batched GMF input must match the model device and dtype")
+        if not torch.isfinite(seq).all():
+            raise ValueError("batched GMF input must be finite")
+        self.reset_state()
+        batch = seq.shape[0]
+        settings = self._ablation_settings
+        fast_values = seq.new_zeros((batch, self.memory.fast.cells, self.dim))
+        slow_values = (seq.new_zeros((batch, self.memory.slow.cells, self.dim))
+                       if settings["memory"] and settings["dual_memory"] else None)
+        latent = None
+        for t in range(seq.shape[1]):
+            z = self.encoder(seq[:, t])
+            if not settings["memory"]:
+                memory = torch.zeros_like(z)
+            else:
+                fast, fast_values = self._independent_memory(
+                    self.memory.fast, z, fast_values, write_memory)
+                if settings["dual_memory"]:
+                    slow, slow_values = self._independent_memory(
+                        self.memory.slow, z, slow_values, write_memory)
+                    memory = 0.65 * fast + 0.35 * slow
+                else:
+                    memory = fast
+            gates = (self.controller(z, memory) if settings["controller"]
+                     else z.new_full((batch, 3), 1.0 / 3.0))
+            fused = (gates[:, :1] * z + gates[:, 1:2] * memory
+                     + gates[:, 2:3] * 0.5 * (z + memory))
+            latent = (fused if latent is None else
+                      self.latent_decay * latent + (1.0 - self.latent_decay) * fused)
+            for _ in range(self.refine_steps if settings["refine"] else 0):
+                latent = self.final_norm(latent + 0.15 * self.post(latent))
+        # No earlier maintained component draws RNG. Preserve each predictor's
+        # dropout shape/order instead of replacing it with a B-row dropout call.
+        predictions, uncertainties = [], []
+        for b in range(batch):
+            predictions.append(self.predictor(latent[b:b + 1]).squeeze(0))
+            uncertainties.append(self.uncertainty(latent[b:b + 1]).squeeze(0))
+        with torch.no_grad():
+            self.memory.fast.values.copy_(fast_values[-1])
+            if slow_values is not None:
+                self.memory.slow.values.copy_(slow_values[-1])
+        # Serial forwarding leaves the last sequence's state visible. Keep the
+        # same convention without allowing state from any row into another.
+        for layer in self.encoder.layers:
+            layer.state = layer.state[-1:]
+        return {"latent": latent, "memory": memory, "gates": gates,
+                "prediction": torch.stack(predictions),
+                "uncertainty": torch.stack(uncertainties)}
+
     def forward(self, seq: torch.Tensor, write_memory: bool = True) -> dict:
         if seq.dim() == 2:
             seq = seq.unsqueeze(0)
+        if self.execution_mode == "batched-v1":
+            return self._forward_independent_batch(seq, write_memory)
         outs = [self._forward_single(seq[b], write_memory=write_memory) for b in range(seq.shape[0])]
         keys = outs[0].keys()
         out = {}

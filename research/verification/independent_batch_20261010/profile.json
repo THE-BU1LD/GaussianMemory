@@ -1,0 +1,53 @@
+{
+  "schema": "gmf.independent-batch-profile.v1",
+  "shape": [
+    16,
+    17,
+    16
+  ],
+  "memory_cells": 32,
+  "layers": 2,
+  "refine_steps": 3,
+  "dtype": "torch.float32",
+  "device": "cpu",
+  "numeric_threads": 1,
+  "repetitions": 7,
+  "training": false,
+  "autograd_enabled": false,
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "source_sha256": "0d12c63296cb65b1bd2ead3089e8a678cc4f7eadf764d6f8cfc7324ef09d6dfa",
+  "profile_scope": "fixed local generated fixture; not general throughput or scientific efficacy",
+  "max_absolute_output_errors": {
+    "latent": 8.940696716308594e-07,
+    "memory": 7.152557373046875e-07,
+    "gates": 8.940696716308594e-08,
+    "prediction": 1.1920928955078125e-07,
+    "uncertainty": 5.960464477539063e-08
+  },
+  "seconds": {
+    "serial-v1": [
+      0.7177310580009362,
+      0.9789745099988068,
+      0.7753118599939626,
+      1.7011882369988598,
+      0.7079500170075335,
+      0.7108153409935767,
+      0.8320499200053746
+    ],
+    "batched-v1": [
+      0.07166984399373177,
+      0.04704991901235189,
+      0.04662657300650608,
+      0.051996957990922965,
+      0.036246966003091075,
+      0.05857745499815792,
+      0.026620706004905514
+    ]
+  },
+  "median_seconds": {
+    "serial-v1": 0.7753118599939626,
+    "batched-v1": 0.04704991901235189
+  },
+  "median_ratio": 16.478495101987782
+}

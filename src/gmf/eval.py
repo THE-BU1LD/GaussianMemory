@@ -14,12 +14,16 @@ from .model import GMFModel, MeanPoolMLP, GRUReasoner, TransformerReasoner
 from .utils import load_checkpoint, save_json, ensure_dir, set_seed
 
 
-def build_model(name: str, dim: int, memory_cells: int):
+def build_model(name: str, dim: int, memory_cells: int, *, execution_mode: str = "serial-v1"):
     name = name.lower()
+    if execution_mode not in {"serial-v1", "batched-v1"}:
+        raise ValueError("execution_mode must be serial-v1 or batched-v1")
+    if execution_mode != "serial-v1" and not (name == "gmf" or name.startswith("gmf_")):
+        raise ValueError("independent batch execution is only available for GMF")
     if name == "gmf":
-        return GMFModel(dim=dim, memory_cells=memory_cells)
+        return GMFModel(dim=dim, memory_cells=memory_cells, execution_mode=execution_mode)
     if name.startswith("gmf_"):
-        return build_ablation(name.removeprefix("gmf_"), dim=dim, memory_cells=memory_cells)
+        return build_ablation(name.removeprefix("gmf_"), dim=dim, memory_cells=memory_cells, execution_mode=execution_mode)
     if name == "mlp":
         return MeanPoolMLP(dim=dim)
     if name == "gru":
@@ -84,6 +88,7 @@ def run_eval(
     seed: int = 0,
     device: str = "cpu",
     out_dir: str = "outputs",
+    execution_mode: str = "serial-v1",
     allow_ablation_override: bool = False,
 ):
     out_root = Path(out_dir)
@@ -92,9 +97,10 @@ def run_eval(
         raise FileExistsError(f"existing evaluation evidence: {output_path}")
     set_seed(seed)
     cfg = BenchmarkConfig(name=benchmark, dim=dim, seq_len=seq_len, n_pairs=n_pairs, distractors=distractors, noise=noise, seed=seed)
-    model = build_model(model_name, dim=dim, memory_cells=memory_cells).to(device)
+    model = build_model(model_name, dim=dim, memory_cells=memory_cells, execution_mode=execution_mode).to(device)
     checkpoint_contract = None
     checkpoint_sha256 = None
+    trained_execution_mode = None
     if ckpt:
         payload = load_checkpoint(
             ckpt, model, None, expected_model_name=model_name,
@@ -105,9 +111,12 @@ def run_eval(
             allow_ablation_override=allow_ablation_override,
         )
         checkpoint_sha256 = payload["checkpoint_sha256"]
+        trained_execution_mode = payload["extra"].get("execution_mode", "serial-v1")
     agg, metrics, data_stream = evaluate(model, benchmark, cfg, device=device, batch_size=batch_size, batches=batches, return_metadata=True)
     result = {
         "implementation_revision": "gmf.integrated-development.v1",
+        "execution_mode": execution_mode,
+        "trained_execution_mode": trained_execution_mode,
         "benchmark": benchmark,
         "model": model_name,
         "data_stream": data_stream,
@@ -139,6 +148,7 @@ def main():
     p.add_argument("--batches", type=int, default=20)
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--device", default="cpu")
+    p.add_argument("--execution-mode", choices=("serial-v1", "batched-v1"), default="serial-v1")
     p.add_argument("--out_dir", default="outputs")
     p.add_argument("--allow-ablation-override", action="store_true",
                    help="Record an intentional within-GMF change from the trained control")

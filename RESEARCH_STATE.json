@@ -117,6 +117,32 @@
     "Source hashes require a fresh process and unchanged checkout; they do not authenticate arbitrary cached, monkeypatched or live-mutated execution."
   ],
   "implementation_revision": "gmf.integrated-development.v1",
+  "independent_batch_continuation_20261010": {
+    "contract": "docs/development/independent-batch-contract-20261010.md",
+    "full_suite_passed": 182,
+    "implementation_revision": "gmf.independent-batch.v1",
+    "independent_extra_configurations": 12,
+    "limitations": [
+      "Batched matrix arithmetic can change floating-point rounding; tolerance equivalence, not bitwise trained-weight identity.",
+      "Exact CPU RNG continuation verified for the maintained components and checked runtime; no arbitrary stochastic module or CUDA equivalence claim.",
+      "Independent bank state scales with batch size; temporary memory increases versus serial execution.",
+      "Fixed local timing ratio is not a hardware-independent speedup or scientific efficacy result.",
+      "UNVALIDATED_INFRASTRUCTURE and all prior scientific/protected/release gates remain."
+    ],
+    "new_scientific_trials": 0,
+    "new_tests": 36,
+    "paid_compute": 0,
+    "parent_commit": "bdb3a82c600c316c424af586813aa9ef7240066d",
+    "protected_outcomes": false,
+    "source_sha256": {
+      "src/gmf/eval.py": "e5fb2ffa2ecb7afdcc41cdb133b0e8e38fd9edc908c6d29880c05bb72b5a3499",
+      "src/gmf/model.py": "0d12c63296cb65b1bd2ead3089e8a678cc4f7eadf764d6f8cfc7324ef09d6dfa",
+      "src/gmf/train.py": "3662dc701b9c757c9ab60335e8497c070d69ca2d949f6d974f93edc502389488",
+      "tests/test_independent_batch_execution.py": "82e088e4946031ffaf6f3c297e9e26d5083f16efa84083cd46b3b4392cd388cd"
+    },
+    "status": "LOCAL_VERIFIED_AFTER_INDEPENDENT_REVIEW",
+    "verification_receipt": "research/verification/independent_batch_20261010/receipt.json"
+  },
   "independent_source_review": "PASS_AFTER_ONE_REPAIR: finance_space reproduced coherent incorrect seed metadata, then reviewed the independently derived seed/current-runtime correction and retained parent behaviors. See independent_review.json.",
   "intended_contribution": "A verified engineering foundation for testing the existing Gaussian-memory hypothesis; scientific novelty and efficacy remain unestablished.",
   "latest_engineering_change": {
