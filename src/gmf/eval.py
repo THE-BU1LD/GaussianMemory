@@ -9,6 +9,7 @@ import torch
 import torch.nn.functional as F
 
 from .data import benchmark_registry, BenchmarkConfig
+from .ablations import build_ablation
 from .losses import cosine_loss, mse_loss
 from .model import GMFModel, MeanPoolMLP, GRUReasoner, TransformerReasoner
 from .utils import load_checkpoint, save_json, ensure_dir
@@ -18,6 +19,8 @@ def build_model(name: str, dim: int, memory_cells: int):
     name = name.lower()
     if name == "gmf":
         return GMFModel(dim=dim, memory_cells=memory_cells)
+    if name.startswith("gmf_"):
+        return build_ablation(name.removeprefix("gmf_"), dim=dim, memory_cells=memory_cells)
     if name == "mlp":
         return MeanPoolMLP(dim=dim)
     if name == "gru":

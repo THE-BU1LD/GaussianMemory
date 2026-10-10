@@ -164,8 +164,17 @@ class GMFModel(nn.Module):
         memory_cells: int = 128,
         refine_steps: int = 3,
         latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
     ):
         super().__init__()
+        from .ablations import ablation_plan
+
+        settings = ablation_plan()
+        if not isinstance(ablation, str) or ablation not in settings:
+            raise ValueError(f"unknown GMF ablation: {ablation!r}")
+        self.ablation = ablation
+        self._ablation_settings = settings[ablation]
         self.dim = dim
         self.encoder = NeuralFieldEncoder(dim, layers=layers)
         self.memory = DualGaussianMemory(dim, cells=memory_cells)
@@ -193,14 +202,23 @@ class GMFModel(nn.Module):
         for t in range(seq.shape[0]):
             x = seq[t:t+1]
             z = self.encoder(x)
-            mem = self.memory(z, write=write_memory)
-            gates = self.controller(z, mem)
+            if not self._ablation_settings["memory"]:
+                mem = torch.zeros_like(z)
+            elif self._ablation_settings["dual_memory"]:
+                mem = self.memory(z, write=write_memory)
+            else:
+                mem = self.memory.fast(z, write=write_memory)
+            if self._ablation_settings["controller"]:
+                gates = self.controller(z, mem)
+            else:
+                gates = z.new_full((z.shape[0], 3), 1.0 / 3.0)
             fused = gates[:, :1] * z + gates[:, 1:2] * mem + gates[:, 2:3] * 0.5 * (z + mem)
             if latent is None:
                 latent = fused
             else:
                 latent = self.latent_decay * latent + (1.0 - self.latent_decay) * fused
-            for _ in range(self.refine_steps):
+            refinement_steps = self.refine_steps if self._ablation_settings["refine"] else 0
+            for _ in range(refinement_steps):
                 delta = self.post(latent)
                 latent = self.final_norm(latent + 0.15 * delta)
             last_mem = mem
