@@ -1,0 +1,30 @@
+{
+  "configuration": {
+    "batch_size": 2,
+    "benchmark": "temporal_prediction",
+    "device": "cpu",
+    "dim": 4,
+    "distractors": 8,
+    "lr": 0.0003,
+    "memory_cells": 5,
+    "model_name": "gmf_single_memory",
+    "n_pairs": 1,
+    "noise": 0.05,
+    "seed": 20261010,
+    "seq_len": 3,
+    "steps": 2
+  },
+  "implementation_revision": "gmf.integrated-development.v1",
+  "python": "3.12.14",
+  "schema": "gmf.training-attempt.v1",
+  "scope": "synthetic development execution; no model superiority claim",
+  "source_sha256": {
+    "ablations.py": "4e20e1151f6919ed17ef8fd4ff36beb8db4facb7590554eaa9bc54c558cc8d8f",
+    "data.py": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+    "losses.py": "d76c21a74248536ce5b0ec9b11aabe273a9ccfcb328ff6281c28b94519273621",
+    "model.py": "60971d7e2d662fc2cea8734c01a54315e5e2b1b035771281252fddd9307d2d82",
+    "train.py": "845674ad6fbb82f6214edfe07adf66a4aa19e91186fe8dd301361673c33f6007",
+    "utils.py": "a98ff5b09846891400bc277f778e496503f3df3052b0704648f9c42861d6bfc1"
+  },
+  "torch": "2.14.1+cpu"
+}

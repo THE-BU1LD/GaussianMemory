@@ -1,0 +1,20 @@
+{
+  "reviewer": "finance_space",
+  "status": "NO_REMAINING_BLOCKER_AFTER_REPAIR",
+  "witness_script": "independent_seed_probe.py",
+  "witness_stdout": "independent_seed_probe.log",
+  "pre_repair_source_sha256": {
+    "src/gmf/ablations.py": "474bdd7ba78145769c953575d44cfb7e716d36226ad5a569f79f4d5bb8ce7cdf",
+    "src/gmf/data.py": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217"
+  },
+  "source_capture_note": "The pre-repair ablations hash is computed from root's retained pre_review_pairing.py source snapshot; the original witness stdout did not contain source hashes. data.py was unchanged through this repair.",
+  "witness_scope": "Existing explicit fake receipt fixtures; zero model training steps. First-control seed +1 coherently across every control was previously admitted.",
+  "repair_review": "Independently reconstructed synthetic-v2 seed matches producer recipe; exact runtime Torch version required before establishing first reference; existing ordered hash, source, checkpoint and control checks retained.",
+  "source_preservation_checks": {
+    "PR4_data_function_AST": "unchanged",
+    "PR5_GaussianMemoryBank_AST": "unchanged",
+    "PR6_GMFModel_AST": "unchanged",
+    "PR6_checkpoint_identity_and_factory_AST": "unchanged"
+  },
+  "extra_tests_or_training_after_repair": 0
+}

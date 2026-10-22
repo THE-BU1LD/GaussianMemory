@@ -1,0 +1,46 @@
+{
+  "schema": "research.engineering-verification.v1",
+  "date": "2026-10-10",
+  "repository": "THE-BU1LD/GaussianMemory",
+  "parent_commit": "89bec9805a311946f05a3038d89a1a0ff46d2c43",
+  "implementation_revision": "gmf.checkpoint-evaluation.v1",
+  "scope": "complete local test suite",
+  "status": "PASSED",
+  "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=. OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 python -m pytest -o addopts='' -q",
+  "passed": 41,
+  "new_cases": 10,
+  "seconds": 30.15,
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.14.1+cpu",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "pytest": "9.1.1",
+    "device": "CPU",
+    "threads_per_test_process": 1
+  },
+  "source_sha256": {
+    "src/gmf/ablations.py": "1c70bbbac1dd2bae563e22ae4ae021b2101866e8b4c94098607e3e5ed12a8f05",
+    "src/gmf/utils.py": "bbbc541bbdae4a5890437776968aa8ae2b0422a8ec2418c3aba11324313b15ad",
+    "src/gmf/eval.py": "6ea7e152c1143631b0c6983d1c257c0e61ddaa673a7673047625410a751f4c8a",
+    "tests/test_ablation_checkpoint_identity.py": "8649c6f1fdbcc88845a71a1fdb1967ff3dee5e25bef6867753306df49b3555d1"
+  },
+  "protected_outcomes_accessed": false,
+  "new_scientific_trials": 0,
+  "provider_calls": 0,
+  "paid_compute": 0,
+  "hosted_ci": "Not a hosted-CI result; verify the exact published head separately.",
+  "independent_review": "PASS: independent root reviewed final NPMS, GaussianMemory, CMU, DRPT, RIPII and LAM source; requested seed/replay and byte-binding corrections are implemented and verified.",
+  "limitations": [
+    "Checkpoint metadata describes provenance; it is not an authenticated signature.",
+    "Legacy direct load_checkpoint calls without expected_model_name retain their existing behavior; run_eval supplies the guard.",
+    "PR #4 data/CLI repairs and PR #5 retrieval numerics remain separate integration requirements.",
+    "No scientific result or manuscript number was regenerated."
+  ],
+  "verification_note": "Final exact-source full suite: 41 passed in 30.15s; retained in tests.xml.",
+  "previous_verification": {
+    "passed": 41,
+    "seconds": 58.12,
+    "scope": "same behavioral source before removal of unused imports"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "cause": "First-control metadata was only checked for a valid seed range and later controls were compared to that first record. Runtime Torch version was only checked as a nonempty string.",
+  "observation": "Every fake control can report the same generator-seed offset and receive pairing_verified=true, contrary to the declared synthetic-v2 seed recipe.",
+  "pre_repair_ablations_sha256": "474bdd7ba78145769c953575d44cfb7e716d36226ad5a569f79f4d5bb8ce7cdf",
+  "repair": "Independently derive the synthetic-v2 seed from declared schema/name/seed/split and require the actual runtime Torch version, before pairing.",
+  "repair_cycle": 1,
+  "required_evidence": "Uniformly shifted seeds and false runtime-version metadata must be rejected even for the first control; all existing integrated tests must still pass.",
+  "result": {
+    "final_suite_passed": 146,
+    "independent_review": "NO_REMAINING_BLOCKER_AFTER_REPAIR",
+    "source_sha256": "4e20e1151f6919ed17ef8fd4ff36beb8db4facb7590554eaa9bc54c558cc8d8f",
+    "test_log": "integrated_tests_final.log"
+  },
+  "severity": "Provenance admission defect in this engineering candidate; no scientific run is invalidated or relabeled.",
+  "status": "REPAIRED_AND_INDEPENDENTLY_REVIEWED"
+}

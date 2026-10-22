@@ -1,0 +1,55 @@
+{
+  "agg": {
+    "cosine_mean": 0.5735685899853706,
+    "cosine_std": 0.3356875106692314,
+    "mse_mean": 0.1250409632921219,
+    "mse_std": 0.08255599439144135,
+    "uncertainty_mean": 0.5827194154262543
+  },
+  "batch_size": 2,
+  "benchmark": "temporal_prediction",
+  "checkpoint_model_contract": {
+    "ablation_intervention": false,
+    "evaluation_model": "gmf_no_controller",
+    "override_authorized": false,
+    "schema": "gmf.checkpoint-evaluation.v1",
+    "trained_model": "gmf_no_controller"
+  },
+  "checkpoint_sha256": "113ff334c4981f85118dc4cbb18793c20e999f1f9c7f75a0c10bc250c189c8ef",
+  "data_stream": {
+    "batches": 2,
+    "config": {
+      "dim": 4,
+      "distractors": 8,
+      "n_pairs": 1,
+      "name": "temporal_prediction",
+      "noise": 0.05,
+      "seed": 20261010,
+      "seq_len": 3
+    },
+    "data_source_sha256": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+    "generator_device": "cpu",
+    "generator_seed": 3240916546225727044,
+    "schema": "gmf.synthetic.v2",
+    "split": "evaluation",
+    "standard_deviation_unit": "batch means within one stream; not across seeds",
+    "torch_version": "2.14.1+cpu"
+  },
+  "implementation_revision": "gmf.integrated-development.v1",
+  "metrics": [
+    {
+      "batch_sha256": "b28668cd86a43f63b38fd2eb9f6ad78c74aae55c16b7e089d5ac68b8efa05057",
+      "cosine": 0.909256100654602,
+      "mse": 0.04248496890068054,
+      "uncertainty": 0.570091724395752
+    },
+    {
+      "batch_sha256": "fde98594e9353c54e25173527ab29f32375afb0d40d6c942404e42d201531acb",
+      "cosine": 0.23788107931613922,
+      "mse": 0.20759695768356323,
+      "uncertainty": 0.5953471064567566
+    }
+  ],
+  "model": "gmf_no_controller",
+  "model_state": "checkpoint"
+}

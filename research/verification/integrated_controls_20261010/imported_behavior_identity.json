@@ -1,0 +1,186 @@
+{
+  "scope": "Selected imported scientific equations, control definitions, data/evaluation semantics and parent regression tests remain intact in this integration. New runner and I/O composition are verified separately.",
+  "parents": {
+    "controls": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+    "streams": "0dcd2bd666e0575a5454cc121bb4a5a7bf3b3066",
+    "kernel": "35c5bd05252460297e7cb69b31dfffdb69eb23aa"
+  },
+  "checks": [
+    {
+      "path": "src/gmf/model.py",
+      "definition": "GaussianMemoryBank",
+      "parent": "35c5bd05252460297e7cb69b31dfffdb69eb23aa",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/model.py",
+      "definition": "DualGaussianMemory",
+      "parent": "35c5bd05252460297e7cb69b31dfffdb69eb23aa",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/model.py",
+      "definition": "GMFModel",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/model.py",
+      "definition": "NeuralFieldLayer",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/model.py",
+      "definition": "NeuralFieldEncoder",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/model.py",
+      "definition": "Controller",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/model.py",
+      "definition": "Predictor",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/model.py",
+      "definition": "UncertaintyHead",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/model.py",
+      "definition": "MeanPoolMLP",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/model.py",
+      "definition": "GRUReasoner",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/model.py",
+      "definition": "TransformerReasoner",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/ablations.py",
+      "definition": "ablation_plan",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/ablations.py",
+      "definition": "checkpoint_evaluation_identity",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/ablations.py",
+      "definition": "build_ablation",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/train.py",
+      "definition": "build_model",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/eval.py",
+      "definition": "build_model",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/eval.py",
+      "definition": "evaluate",
+      "parent": "0dcd2bd666e0575a5454cc121bb4a5a7bf3b3066",
+      "method": "complete AST without locations",
+      "equal": true
+    },
+    {
+      "path": "src/gmf/data.py",
+      "parent": "0dcd2bd666e0575a5454cc121bb4a5a7bf3b3066",
+      "method": "exact bytes",
+      "equal": true,
+      "sha256": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217"
+    },
+    {
+      "path": "tests/test_data_integrity.py",
+      "parent": "0dcd2bd666e0575a5454cc121bb4a5a7bf3b3066",
+      "method": "exact bytes",
+      "equal": true,
+      "sha256": "d569be35162ae5631a9e2a01517fc5d83465e645bd604c626c4c444e8906ed7a"
+    },
+    {
+      "path": "tests/test_training_failure_receipts.py",
+      "parent": "0dcd2bd666e0575a5454cc121bb4a5a7bf3b3066",
+      "method": "exact bytes",
+      "equal": true,
+      "sha256": "f1a0d12a3178371cc8b4e2cb0d88ff4004c8fc19cd8f2d72756f714d49c6fad2"
+    },
+    {
+      "path": "docs/development/synthetic-streams-20261010.md",
+      "parent": "0dcd2bd666e0575a5454cc121bb4a5a7bf3b3066",
+      "method": "exact bytes",
+      "equal": true,
+      "sha256": "57071ddc7b752de4176217e92174beeb8554a6034ad28d8e71f9ac6ab26032b9"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "parent": "0dcd2bd666e0575a5454cc121bb4a5a7bf3b3066",
+      "method": "exact bytes",
+      "equal": true,
+      "sha256": "d0791180bd8f1a15c99261fd54ddfe99a0fd46885fe966e2f2ce54ec7159afd4"
+    },
+    {
+      "path": "tests/test_gaussian_memory_numerics.py",
+      "parent": "35c5bd05252460297e7cb69b31dfffdb69eb23aa",
+      "method": "exact bytes",
+      "equal": true,
+      "sha256": "1088585be1094a0d6f2f42d2fd5c00c369d5e6793f1fceb38e065a5c965ae3b3"
+    },
+    {
+      "path": "src/gmf/losses.py",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "exact bytes",
+      "equal": true,
+      "sha256": "d76c21a74248536ce5b0ec9b11aabe273a9ccfcb328ff6281c28b94519273621"
+    },
+    {
+      "path": "tests/test_ablation_checkpoint_identity.py",
+      "parent": "5094bbb699eebd0cf85364bea759959fb35d6d33",
+      "method": "exact bytes",
+      "equal": true,
+      "sha256": "8649c6f1fdbcc88845a71a1fdb1967ff3dee5e25bef6867753306df49b3555d1"
+    }
+  ],
+  "all_equal": true
+}

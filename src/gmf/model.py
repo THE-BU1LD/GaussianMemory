@@ -1,6 +1,8 @@
 
 from __future__ import annotations
-from dataclasses import dataclass
+
+import math
+import operator
 
 import torch
 import torch.nn as nn
@@ -10,11 +12,24 @@ import torch.nn.functional as F
 class GaussianMemoryBank(nn.Module):
     def __init__(self, dim: int, cells: int = 256, sigma: float = 1.5, decay: float = 0.995, lr: float = 0.08, mode: str = "hybrid"):
         super().__init__()
-        self.dim = dim
-        self.cells = cells
-        self.sigma = sigma
-        self.decay = decay
-        self.lr = lr
+        for name, value in (("dim", dim), ("cells", cells)):
+            if isinstance(value, bool):
+                raise TypeError(f"{name} must be a positive integer")
+            if operator.index(value) < 1:
+                raise ValueError(f"{name} must be a positive integer")
+        if mode not in {"gaussian", "cosine", "hybrid"}:
+            raise ValueError("mode must be gaussian, cosine or hybrid")
+        if not math.isfinite(sigma) or sigma <= 0:
+            raise ValueError("sigma must be finite and positive")
+        if not math.isfinite(decay) or not 0 <= decay <= 1:
+            raise ValueError("decay must be finite and in [0, 1]")
+        if not math.isfinite(lr) or lr < 0:
+            raise ValueError("lr must be finite and nonnegative")
+        self.dim = operator.index(dim)
+        self.cells = operator.index(cells)
+        self.sigma = float(sigma)
+        self.decay = float(decay)
+        self.lr = float(lr)
         self.mode = mode
 
         self.centers = nn.Parameter(torch.randn(cells, dim) * 0.5)
@@ -24,19 +39,38 @@ class GaussianMemoryBank(nn.Module):
         self.values.zero_()
 
     def _similarity(self, x: torch.Tensor) -> torch.Tensor:
-        x_n = F.normalize(x, dim=-1)
-        c_n = F.normalize(self.centers, dim=-1)
+        if not isinstance(x, torch.Tensor) or not x.is_floating_point():
+            raise TypeError("memory input must be a real floating-point tensor")
+        if x.ndim != 2 or x.shape[0] < 1 or x.shape[1] != self.dim:
+            raise ValueError(f"memory input must have shape [batch, {self.dim}]")
+        if x.device != self.centers.device or x.dtype != self.centers.dtype:
+            raise ValueError("memory input must match the bank's device and dtype")
+        if not torch.isfinite(x).all() or not torch.isfinite(self.centers).all():
+            raise ValueError("memory input and centers must be finite")
+        # CPU distance kernels require float32 or float64. Promotion also
+        # prevents fp16 Gaussian exponent/normalization underflow.
+        work_dtype = torch.float64 if x.dtype == torch.float64 else torch.float32
+        query = x.to(dtype=work_dtype)
+        centers = self.centers.to(dtype=work_dtype)
+        x_n = F.normalize(query, dim=-1)
+        c_n = F.normalize(centers, dim=-1)
         cosine = x_n @ c_n.t()
         if self.mode == "cosine":
-            return torch.softmax(cosine, dim=-1)
-        x2 = (x * x).sum(dim=-1, keepdim=True)
-        c2 = (self.centers * self.centers).sum(dim=-1).unsqueeze(0)
-        dist2 = x2 + c2 - 2.0 * (x @ self.centers.t())
-        gaussian = torch.exp(-dist2 / (2 * self.sigma ** 2))
+            return torch.softmax(cosine, dim=-1).to(dtype=x.dtype)
+        # Direct distances avoid catastrophic cancellation in
+        # ||x||^2 + ||c||^2 - 2*x.c near large, almost-equal vectors.
+        distance = torch.cdist(query, centers, compute_mode="donot_use_mm_for_euclid_dist")
+        log_gaussian = -0.5 * (distance / self.sigma).square()
+        if not torch.isfinite(log_gaussian).all():
+            raise FloatingPointError("Gaussian distances exceed the numeric range")
         if self.mode == "gaussian":
-            return gaussian / (gaussian.sum(dim=-1, keepdim=True) + 1e-8)
+            # Normalizing exponentials directly made far queries return
+            # all-zero weights. Softmax performs the same normalization in
+            # log space, retaining unit probability mass.
+            return torch.softmax(log_gaussian, dim=-1).to(dtype=x.dtype)
+        gaussian = torch.exp(log_gaussian)
         hybrid = gaussian + 0.5 * (cosine + 1.0)
-        return torch.softmax(hybrid, dim=-1)
+        return torch.softmax(hybrid, dim=-1).to(dtype=x.dtype)
 
     def read(self, x: torch.Tensor) -> torch.Tensor:
         w = self._similarity(x)
@@ -48,7 +82,10 @@ class GaussianMemoryBank(nn.Module):
         w = self._similarity(x)
         denom = w.sum(dim=0, keepdim=True).t().clamp_min(1e-6)
         update = (w.t() @ x) / denom
-        self.values.mul_(self.decay).add_(self.lr * update)
+        candidate = self.values * self.decay + self.lr * update
+        if not torch.isfinite(candidate).all():
+            raise FloatingPointError("memory update produced non-finite values")
+        self.values.copy_(candidate)
 
     def forward(self, x: torch.Tensor, write: bool = True) -> torch.Tensor:
         mem = self.read(x)
@@ -164,8 +201,17 @@ class GMFModel(nn.Module):
         memory_cells: int = 128,
         refine_steps: int = 3,
         latent_decay: float = 0.85,
+        *,
+        ablation: str = "full",
     ):
         super().__init__()
+        from .ablations import ablation_plan
+
+        settings = ablation_plan()
+        if not isinstance(ablation, str) or ablation not in settings:
+            raise ValueError(f"unknown GMF ablation: {ablation!r}")
+        self.ablation = ablation
+        self._ablation_settings = settings[ablation]
         self.dim = dim
         self.encoder = NeuralFieldEncoder(dim, layers=layers)
         self.memory = DualGaussianMemory(dim, cells=memory_cells)
@@ -193,14 +239,23 @@ class GMFModel(nn.Module):
         for t in range(seq.shape[0]):
             x = seq[t:t+1]
             z = self.encoder(x)
-            mem = self.memory(z, write=write_memory)
-            gates = self.controller(z, mem)
+            if not self._ablation_settings["memory"]:
+                mem = torch.zeros_like(z)
+            elif self._ablation_settings["dual_memory"]:
+                mem = self.memory(z, write=write_memory)
+            else:
+                mem = self.memory.fast(z, write=write_memory)
+            if self._ablation_settings["controller"]:
+                gates = self.controller(z, mem)
+            else:
+                gates = z.new_full((z.shape[0], 3), 1.0 / 3.0)
             fused = gates[:, :1] * z + gates[:, 1:2] * mem + gates[:, 2:3] * 0.5 * (z + mem)
             if latent is None:
                 latent = fused
             else:
                 latent = self.latent_decay * latent + (1.0 - self.latent_decay) * fused
-            for _ in range(self.refine_steps):
+            refinement_steps = self.refine_steps if self._ablation_settings["refine"] else 0
+            for _ in range(refinement_steps):
                 delta = self.post(latent)
                 latent = self.final_norm(latent + 0.15 * delta)
             last_mem = mem

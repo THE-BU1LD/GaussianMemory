@@ -1,6 +1,8 @@
 
 from __future__ import annotations
 import json
+import hashlib
+import io
 import random
 from dataclasses import asdict, is_dataclass
 from pathlib import Path
@@ -44,8 +46,10 @@ def to_jsonable(obj: Any) -> Any:
     return obj
 
 
-def save_json(path: str | Path, payload: Any) -> None:
-    Path(path).write_text(json.dumps(to_jsonable(payload), indent=2, sort_keys=True))
+def save_json(path: str | Path, payload: Any, *, overwrite: bool = True) -> None:
+    encoded = json.dumps(to_jsonable(payload), indent=2, sort_keys=True, allow_nan=False)
+    with Path(path).open("w" if overwrite else "x", encoding="utf-8") as handle:
+        handle.write(encoded + "\n")
 
 
 def load_json(path: str | Path) -> Any:
@@ -62,11 +66,22 @@ def save_checkpoint(path: str | Path, model: torch.nn.Module, optimizer: torch.o
     torch.save(payload, path)
 
 
-def load_checkpoint(path: str | Path, model: torch.nn.Module, optimizer: torch.optim.Optimizer | None = None):
-    payload = torch.load(path, map_location="cpu")
+def load_checkpoint(path: str | Path, model: torch.nn.Module, optimizer: torch.optim.Optimizer | None = None,
+                    *, expected_model_name: str | None = None, allow_ablation_override: bool = False):
+    # Hash and decode one snapshot while retaining pre-mutation control admission.
+    source = Path(path).read_bytes()
+    payload = torch.load(io.BytesIO(source), map_location="cpu", weights_only=True)
+    if expected_model_name is not None:
+        from .ablations import checkpoint_evaluation_identity
+
+        checkpoint_evaluation_identity(
+            payload.get("extra"), expected_model_name,
+            allow_ablation_override=allow_ablation_override,
+        )
     model.load_state_dict(payload["model"])
     if optimizer is not None and "optimizer" in payload:
         optimizer.load_state_dict(payload["optimizer"])
+    payload["checkpoint_sha256"] = hashlib.sha256(source).hexdigest()
     return payload
 
 

@@ -1,0 +1,456 @@
+{
+  "claim_boundary": "Component execution only. No advancement rule, statistical confirmation, compute matching, calibrated uncertainty, or protected-data authorization. Audit and freeze the integrated data-generation protocol before a scientific run.",
+  "configuration": {
+    "batch_size": 2,
+    "benchmark": "temporal_prediction",
+    "device": "cpu",
+    "dim": 4,
+    "distractors": 8,
+    "eval_batches": 2,
+    "lr": 0.0003,
+    "memory_cells": 5,
+    "n_pairs": 1,
+    "noise": 0.05,
+    "seed": 20261010,
+    "seq_len": 3,
+    "steps": 2
+  },
+  "data_schema": "gmf.synthetic.v2",
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.14.1+cpu"
+  },
+  "format": "gmf-component-ablations-v2",
+  "implementation_revision": "gmf.integrated-development.v1",
+  "paired_streams": {
+    "evaluation": {
+      "batch_sha256": [
+        "b28668cd86a43f63b38fd2eb9f6ad78c74aae55c16b7e089d5ac68b8efa05057",
+        "fde98594e9353c54e25173527ab29f32375afb0d40d6c942404e42d201531acb"
+      ],
+      "metadata": {
+        "batches": 2,
+        "config": {
+          "dim": 4,
+          "distractors": 8,
+          "n_pairs": 1,
+          "name": "temporal_prediction",
+          "noise": 0.05,
+          "seed": 20261010,
+          "seq_len": 3
+        },
+        "data_source_sha256": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+        "generator_device": "cpu",
+        "generator_seed": 3240916546225727044,
+        "schema": "gmf.synthetic.v2",
+        "split": "evaluation",
+        "standard_deviation_unit": "batch means within one stream; not across seeds",
+        "torch_version": "2.14.1+cpu"
+      }
+    },
+    "train": {
+      "batch_sha256": [
+        "410411465b2d32547c82cffde9bacfaab5082fc0a70179e2c26b4b06f0040a5f",
+        "0793f0738e62e8d05f2ac30add92a621856cf30f94f990ab17f9a20219594e69"
+      ],
+      "metadata": {
+        "batches": 2,
+        "config": {
+          "dim": 4,
+          "distractors": 8,
+          "n_pairs": 1,
+          "name": "temporal_prediction",
+          "noise": 0.05,
+          "seed": 20261010,
+          "seq_len": 3
+        },
+        "data_source_sha256": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+        "generator_device": "cpu",
+        "generator_seed": 7730007271336951036,
+        "schema": "gmf.synthetic.v2",
+        "split": "train",
+        "torch_version": "2.14.1+cpu"
+      }
+    }
+  },
+  "runs": [
+    {
+      "ablation": "full",
+      "checkpoint": "temporal_prediction_gmf_full_seed20261010/checkpoint.pt",
+      "checkpoint_sha256": "e7d46b465cb90450515bb1a7f30a84f4bb684c91ba483d0d35ba407628d1a8a1",
+      "evaluation": {
+        "agg": {
+          "cosine_mean": 0.563853032886982,
+          "cosine_std": 0.3445112630724907,
+          "mse_mean": 0.12690399587154388,
+          "mse_std": 0.08440302312374115,
+          "uncertainty_mean": 0.5816875994205475
+        },
+        "batch_size": 2,
+        "benchmark": "temporal_prediction",
+        "checkpoint_model_contract": {
+          "ablation_intervention": false,
+          "evaluation_model": "gmf_full",
+          "override_authorized": false,
+          "schema": "gmf.checkpoint-evaluation.v1",
+          "trained_model": "gmf_full"
+        },
+        "checkpoint_sha256": "e7d46b465cb90450515bb1a7f30a84f4bb684c91ba483d0d35ba407628d1a8a1",
+        "data_stream": {
+          "batches": 2,
+          "config": {
+            "dim": 4,
+            "distractors": 8,
+            "n_pairs": 1,
+            "name": "temporal_prediction",
+            "noise": 0.05,
+            "seed": 20261010,
+            "seq_len": 3
+          },
+          "data_source_sha256": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+          "generator_device": "cpu",
+          "generator_seed": 3240916546225727044,
+          "schema": "gmf.synthetic.v2",
+          "split": "evaluation",
+          "standard_deviation_unit": "batch means within one stream; not across seeds",
+          "torch_version": "2.14.1+cpu"
+        },
+        "implementation_revision": "gmf.integrated-development.v1",
+        "metrics": [
+          {
+            "batch_sha256": "b28668cd86a43f63b38fd2eb9f6ad78c74aae55c16b7e089d5ac68b8efa05057",
+            "cosine": 0.9083642959594727,
+            "mse": 0.042500972747802734,
+            "uncertainty": 0.5690777897834778
+          },
+          {
+            "batch_sha256": "fde98594e9353c54e25173527ab29f32375afb0d40d6c942404e42d201531acb",
+            "cosine": 0.21934176981449127,
+            "mse": 0.21130701899528503,
+            "uncertainty": 0.5942974090576172
+          }
+        ],
+        "model": "gmf_full",
+        "model_state": "checkpoint"
+      },
+      "model_name": "gmf_full",
+      "pairing_verified": true,
+      "status": "completed",
+      "training_batch_sha256": [
+        "410411465b2d32547c82cffde9bacfaab5082fc0a70179e2c26b4b06f0040a5f",
+        "0793f0738e62e8d05f2ac30add92a621856cf30f94f990ab17f9a20219594e69"
+      ]
+    },
+    {
+      "ablation": "no_memory",
+      "checkpoint": "temporal_prediction_gmf_no_memory_seed20261010/checkpoint.pt",
+      "checkpoint_sha256": "9746b605074620a3d5f451c8e163359d1db7a73dfdbb242348ba3eb4c2cb4c9f",
+      "evaluation": {
+        "agg": {
+          "cosine_mean": 0.5606033205986023,
+          "cosine_std": 0.3474770188331604,
+          "mse_mean": 0.12758524529635906,
+          "mse_std": 0.08504770882427692,
+          "uncertainty_mean": 0.5814180374145508
+        },
+        "batch_size": 2,
+        "benchmark": "temporal_prediction",
+        "checkpoint_model_contract": {
+          "ablation_intervention": false,
+          "evaluation_model": "gmf_no_memory",
+          "override_authorized": false,
+          "schema": "gmf.checkpoint-evaluation.v1",
+          "trained_model": "gmf_no_memory"
+        },
+        "checkpoint_sha256": "9746b605074620a3d5f451c8e163359d1db7a73dfdbb242348ba3eb4c2cb4c9f",
+        "data_stream": {
+          "batches": 2,
+          "config": {
+            "dim": 4,
+            "distractors": 8,
+            "n_pairs": 1,
+            "name": "temporal_prediction",
+            "noise": 0.05,
+            "seed": 20261010,
+            "seq_len": 3
+          },
+          "data_source_sha256": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+          "generator_device": "cpu",
+          "generator_seed": 3240916546225727044,
+          "schema": "gmf.synthetic.v2",
+          "split": "evaluation",
+          "standard_deviation_unit": "batch means within one stream; not across seeds",
+          "torch_version": "2.14.1+cpu"
+        },
+        "implementation_revision": "gmf.integrated-development.v1",
+        "metrics": [
+          {
+            "batch_sha256": "b28668cd86a43f63b38fd2eb9f6ad78c74aae55c16b7e089d5ac68b8efa05057",
+            "cosine": 0.9080803394317627,
+            "mse": 0.04253753647208214,
+            "uncertainty": 0.5688811540603638
+          },
+          {
+            "batch_sha256": "fde98594e9353c54e25173527ab29f32375afb0d40d6c942404e42d201531acb",
+            "cosine": 0.2131263017654419,
+            "mse": 0.212632954120636,
+            "uncertainty": 0.5939549207687378
+          }
+        ],
+        "model": "gmf_no_memory",
+        "model_state": "checkpoint"
+      },
+      "model_name": "gmf_no_memory",
+      "pairing_verified": true,
+      "status": "completed",
+      "training_batch_sha256": [
+        "410411465b2d32547c82cffde9bacfaab5082fc0a70179e2c26b4b06f0040a5f",
+        "0793f0738e62e8d05f2ac30add92a621856cf30f94f990ab17f9a20219594e69"
+      ]
+    },
+    {
+      "ablation": "no_controller",
+      "checkpoint": "temporal_prediction_gmf_no_controller_seed20261010/checkpoint.pt",
+      "checkpoint_sha256": "113ff334c4981f85118dc4cbb18793c20e999f1f9c7f75a0c10bc250c189c8ef",
+      "evaluation": {
+        "agg": {
+          "cosine_mean": 0.5735685899853706,
+          "cosine_std": 0.3356875106692314,
+          "mse_mean": 0.1250409632921219,
+          "mse_std": 0.08255599439144135,
+          "uncertainty_mean": 0.5827194154262543
+        },
+        "batch_size": 2,
+        "benchmark": "temporal_prediction",
+        "checkpoint_model_contract": {
+          "ablation_intervention": false,
+          "evaluation_model": "gmf_no_controller",
+          "override_authorized": false,
+          "schema": "gmf.checkpoint-evaluation.v1",
+          "trained_model": "gmf_no_controller"
+        },
+        "checkpoint_sha256": "113ff334c4981f85118dc4cbb18793c20e999f1f9c7f75a0c10bc250c189c8ef",
+        "data_stream": {
+          "batches": 2,
+          "config": {
+            "dim": 4,
+            "distractors": 8,
+            "n_pairs": 1,
+            "name": "temporal_prediction",
+            "noise": 0.05,
+            "seed": 20261010,
+            "seq_len": 3
+          },
+          "data_source_sha256": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+          "generator_device": "cpu",
+          "generator_seed": 3240916546225727044,
+          "schema": "gmf.synthetic.v2",
+          "split": "evaluation",
+          "standard_deviation_unit": "batch means within one stream; not across seeds",
+          "torch_version": "2.14.1+cpu"
+        },
+        "implementation_revision": "gmf.integrated-development.v1",
+        "metrics": [
+          {
+            "batch_sha256": "b28668cd86a43f63b38fd2eb9f6ad78c74aae55c16b7e089d5ac68b8efa05057",
+            "cosine": 0.909256100654602,
+            "mse": 0.04248496890068054,
+            "uncertainty": 0.570091724395752
+          },
+          {
+            "batch_sha256": "fde98594e9353c54e25173527ab29f32375afb0d40d6c942404e42d201531acb",
+            "cosine": 0.23788107931613922,
+            "mse": 0.20759695768356323,
+            "uncertainty": 0.5953471064567566
+          }
+        ],
+        "model": "gmf_no_controller",
+        "model_state": "checkpoint"
+      },
+      "model_name": "gmf_no_controller",
+      "pairing_verified": true,
+      "status": "completed",
+      "training_batch_sha256": [
+        "410411465b2d32547c82cffde9bacfaab5082fc0a70179e2c26b4b06f0040a5f",
+        "0793f0738e62e8d05f2ac30add92a621856cf30f94f990ab17f9a20219594e69"
+      ]
+    },
+    {
+      "ablation": "no_refine",
+      "checkpoint": "temporal_prediction_gmf_no_refine_seed20261010/checkpoint.pt",
+      "checkpoint_sha256": "925474b59f4ad99a7d5cd376d2995ec1bd8031efba406aab0de601132c99f7a2",
+      "evaluation": {
+        "agg": {
+          "cosine_mean": 0.5994533598423004,
+          "cosine_std": 0.2129044234752655,
+          "mse_mean": 0.11395268142223358,
+          "mse_std": 0.04389019310474396,
+          "uncertainty_mean": 0.5677094161510468
+        },
+        "batch_size": 2,
+        "benchmark": "temporal_prediction",
+        "checkpoint_model_contract": {
+          "ablation_intervention": false,
+          "evaluation_model": "gmf_no_refine",
+          "override_authorized": false,
+          "schema": "gmf.checkpoint-evaluation.v1",
+          "trained_model": "gmf_no_refine"
+        },
+        "checkpoint_sha256": "925474b59f4ad99a7d5cd376d2995ec1bd8031efba406aab0de601132c99f7a2",
+        "data_stream": {
+          "batches": 2,
+          "config": {
+            "dim": 4,
+            "distractors": 8,
+            "n_pairs": 1,
+            "name": "temporal_prediction",
+            "noise": 0.05,
+            "seed": 20261010,
+            "seq_len": 3
+          },
+          "data_source_sha256": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+          "generator_device": "cpu",
+          "generator_seed": 3240916546225727044,
+          "schema": "gmf.synthetic.v2",
+          "split": "evaluation",
+          "standard_deviation_unit": "batch means within one stream; not across seeds",
+          "torch_version": "2.14.1+cpu"
+        },
+        "implementation_revision": "gmf.integrated-development.v1",
+        "metrics": [
+          {
+            "batch_sha256": "b28668cd86a43f63b38fd2eb9f6ad78c74aae55c16b7e089d5ac68b8efa05057",
+            "cosine": 0.8123577833175659,
+            "mse": 0.07006248831748962,
+            "uncertainty": 0.563818633556366
+          },
+          {
+            "batch_sha256": "fde98594e9353c54e25173527ab29f32375afb0d40d6c942404e42d201531acb",
+            "cosine": 0.3865489363670349,
+            "mse": 0.15784287452697754,
+            "uncertainty": 0.5716001987457275
+          }
+        ],
+        "model": "gmf_no_refine",
+        "model_state": "checkpoint"
+      },
+      "model_name": "gmf_no_refine",
+      "pairing_verified": true,
+      "status": "completed",
+      "training_batch_sha256": [
+        "410411465b2d32547c82cffde9bacfaab5082fc0a70179e2c26b4b06f0040a5f",
+        "0793f0738e62e8d05f2ac30add92a621856cf30f94f990ab17f9a20219594e69"
+      ]
+    },
+    {
+      "ablation": "single_memory",
+      "checkpoint": "temporal_prediction_gmf_single_memory_seed20261010/checkpoint.pt",
+      "checkpoint_sha256": "4980d3ee61feca1925625805f5ecae37874506bfca2733ae0924e646c0425381",
+      "evaluation": {
+        "agg": {
+          "cosine_mean": 0.5648022368550301,
+          "cosine_std": 0.3436398431658745,
+          "mse_mean": 0.12670769542455673,
+          "mse_std": 0.08421614021062851,
+          "uncertainty_mean": 0.5817658305168152
+        },
+        "batch_size": 2,
+        "benchmark": "temporal_prediction",
+        "checkpoint_model_contract": {
+          "ablation_intervention": false,
+          "evaluation_model": "gmf_single_memory",
+          "override_authorized": false,
+          "schema": "gmf.checkpoint-evaluation.v1",
+          "trained_model": "gmf_single_memory"
+        },
+        "checkpoint_sha256": "4980d3ee61feca1925625805f5ecae37874506bfca2733ae0924e646c0425381",
+        "data_stream": {
+          "batches": 2,
+          "config": {
+            "dim": 4,
+            "distractors": 8,
+            "n_pairs": 1,
+            "name": "temporal_prediction",
+            "noise": 0.05,
+            "seed": 20261010,
+            "seq_len": 3
+          },
+          "data_source_sha256": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+          "generator_device": "cpu",
+          "generator_seed": 3240916546225727044,
+          "schema": "gmf.synthetic.v2",
+          "split": "evaluation",
+          "standard_deviation_unit": "batch means within one stream; not across seeds",
+          "torch_version": "2.14.1+cpu"
+        },
+        "implementation_revision": "gmf.integrated-development.v1",
+        "metrics": [
+          {
+            "batch_sha256": "b28668cd86a43f63b38fd2eb9f6ad78c74aae55c16b7e089d5ac68b8efa05057",
+            "cosine": 0.9084420800209045,
+            "mse": 0.04249155521392822,
+            "uncertainty": 0.5691357851028442
+          },
+          {
+            "batch_sha256": "fde98594e9353c54e25173527ab29f32375afb0d40d6c942404e42d201531acb",
+            "cosine": 0.22116239368915558,
+            "mse": 0.21092383563518524,
+            "uncertainty": 0.5943958759307861
+          }
+        ],
+        "model": "gmf_single_memory",
+        "model_state": "checkpoint"
+      },
+      "model_name": "gmf_single_memory",
+      "pairing_verified": true,
+      "status": "completed",
+      "training_batch_sha256": [
+        "410411465b2d32547c82cffde9bacfaab5082fc0a70179e2c26b4b06f0040a5f",
+        "0793f0738e62e8d05f2ac30add92a621856cf30f94f990ab17f9a20219594e69"
+      ]
+    }
+  ],
+  "scope": "development_only",
+  "settings": {
+    "full": {
+      "controller": true,
+      "dual_memory": true,
+      "memory": true,
+      "refine": true
+    },
+    "no_controller": {
+      "controller": false,
+      "dual_memory": true,
+      "memory": true,
+      "refine": true
+    },
+    "no_memory": {
+      "controller": true,
+      "dual_memory": false,
+      "memory": false,
+      "refine": true
+    },
+    "no_refine": {
+      "controller": true,
+      "dual_memory": true,
+      "memory": true,
+      "refine": false
+    },
+    "single_memory": {
+      "controller": true,
+      "dual_memory": false,
+      "memory": true,
+      "refine": true
+    }
+  },
+  "source_sha256": {
+    "ablations.py": "4e20e1151f6919ed17ef8fd4ff36beb8db4facb7590554eaa9bc54c558cc8d8f",
+    "data.py": "af4ec8ce5806d4a886345c3cfb01b1bb7b05d6466a0be051c71245aa79124217",
+    "eval.py": "0517b300005b1539944163303cd8e9d646d5eadf9de095323909d0a3019c1d49",
+    "losses.py": "d76c21a74248536ce5b0ec9b11aabe273a9ccfcb328ff6281c28b94519273621",
+    "model.py": "60971d7e2d662fc2cea8734c01a54315e5e2b1b035771281252fddd9307d2d82",
+    "train.py": "845674ad6fbb82f6214edfe07adf66a4aa19e91186fe8dd301361673c33f6007",
+    "utils.py": "a98ff5b09846891400bc277f778e496503f3df3052b0704648f9c42861d6bfc1"
+  },
+  "status": "completed"
+}

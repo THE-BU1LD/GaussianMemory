@@ -1,0 +1,10 @@
+{
+  "scope": "CONSTRUCTED_CHECKPOINT_ADMISSION_WITNESS; evaluator mocked, no scientific outcome",
+  "remote_parent": "89bec9805a311946f05a3038d89a1a0ff46d2c43",
+  "retained_eval_sha256": "cb3c4f2cdab5474b78aec5e528c5968e43d11d02bedaa2b58de05c6390f2d710",
+  "trained_control": "gmf_no_memory",
+  "requested_control": "gmf_full",
+  "old_evaluation_reached": true,
+  "old_reported_model": "gmf_full",
+  "old_report_contains_checkpoint_contract": false
+}
