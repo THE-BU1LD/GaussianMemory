@@ -326,5 +326,44 @@
       },
       "next_action": "Review the existing integrated PR7 candidate; all scientific gates remain pending."
     }
+  ],
+  "github_integration_reviews": [
+    {
+      "session": "20261022-github-integration",
+      "reviewed_head": "2432bc18801d87e8d61f6554393055f9ea5e7d3f",
+      "reviewed_main": "9f08ce93dd270216983f16767fa2e2ad47f10252",
+      "status": "PREPARED_FOR_MAIN_INTEGRATION",
+      "scope": "Source-only review of complete engineering stack; no source/test/configuration/empirical artifact changes.",
+      "record": "research/GITHUB_INTEGRATION_REVIEW_20261022.md",
+      "verification": {
+        "workflow_run": 38043566093,
+        "job": 114188471796,
+        "exact_checkout": "2432bc18801d87e8d61f6554393055f9ea5e7d3f",
+        "passed": 158,
+        "pytest_seconds": 8.66,
+        "compilation": "passed",
+        "entrypoint_help": "passed",
+        "evidence_boundary_sentinel": "passed",
+        "new_local_executions": 0
+      },
+      "budget": {
+        "prior_sessions": "Preserved closed with their original usage",
+        "maximum_hosted_integration_suite_runs": 2,
+        "allocation": "One exact PR head gate and one automatic main merge gate; unchanged bounded generated fixtures only",
+        "maximum_test_minutes_per_run": 10,
+        "standalone_demonstrations": 0,
+        "scientific_trials": 0,
+        "paid_compute": 0,
+        "protected_runs": 0
+      },
+      "scientific_disposition": "UNVALIDATED_INFRASTRUCTURE",
+      "remaining_scientific_requirements": [
+        "Establish and document the prior-art boundary, precise hypothesis, model specification and central falsifier before scientific implementation changes.",
+        "Define scientifically appropriate datasets, independent units, strong/mechanism-off/matched controls, endpoint, practical threshold, repetition/uncertainty and stopping rules; then freeze before protected outcomes.",
+        "Retain raw scientific predictions and matched resource measurements in any future scientific campaign; the tiny diagnostic matrix is not that campaign."
+      ],
+      "publication": "Retarget PR #7 to main before metadata publication, observe fresh exact-head checks, then merge only if eligible. Merge is not claimed by this record."
+    }
   ]
 }
+
